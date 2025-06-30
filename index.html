@@ -1,0 +1,878 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>柏勝科技有限公司 - 智慧製造系統整合專家</title>
+    <!-- TODO: 將 logo.png 換成您的 favicon 檔案 -->
+    <link rel="icon"
+        href="https://static.wixstatic.com/media/427b88_9d39dc3657f947f7be73f7c3a4f3cbf4~mv2.png/v1/fill/w_32,h_32,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/427b88_9d39dc3657f947f7be73f7c3a4f3cbf4~mv2.png"
+        type="image/png">
+    <style>
+        :root {
+            --primary-color: #0d47a1;
+            --light-grey-bg: #f2f4f7;
+            --white-bg: #ffffff;
+            --text-color: #333;
+            --header-height: 80px;
+            --line-green: #06C755;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: var(--header-height);
+        }
+
+        body {
+            font-family: 'Helvetica Neue', '微軟正黑體', 'Microsoft JhengHei', sans-serif;
+            margin: 0;
+            padding: 0;
+            line-height: 1.7;
+            color: var(--text-color);
+            background-color: var(--white-bg);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        section {
+            padding: 80px 0;
+        }
+
+        h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+
+        h3 {
+            font-size: 1.5rem;
+            color: var(--primary-color);
+            margin-top: 0;
+            margin-bottom: 15px;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            font-size: 1.1rem;
+            color: #666;
+            margin-top: 0;
+            margin-bottom: 60px;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Header / Navigation */
+        header {
+            background-color: var(--white-bg);
+            border-bottom: 1px solid #e0e0e0;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+            height: var(--header-height);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 40px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .logo img {
+            max-height: 50px;
+            vertical-align: middle;
+        }
+
+        nav {
+            display: flex;
+            align-items: center;
+        }
+
+        nav a {
+            color: var(--text-color);
+            text-decoration: none;
+            font-size: 1rem;
+            font-weight: bold;
+            margin-left: 25px;
+            transition: color 0.3s ease;
+        }
+
+        nav a:hover {
+            color: var(--primary-color);
+        }
+
+        .cta-button {
+            background-color: var(--primary-color);
+            color: white !important;
+            padding: 10px 20px;
+            border-radius: 5px;
+            margin-left: 30px;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .cta-button:hover {
+            background-color: #0b3a82;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+        }
+
+        .menu-toggle {
+            display: none;
+            font-size: 2rem;
+            cursor: pointer;
+        }
+
+        /* About Us */
+        #about {
+            background-color: var(--light-grey-bg);
+        }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1.1fr 1fr;
+            gap: 50px;
+            align-items: center;
+        }
+
+        .about-text h3 {
+            color: #333;
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+        }
+
+        .about-text .value-prop {
+            font-weight: bold;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            font-size: 1.2rem;
+        }
+
+        .about-text p {
+            font-size: 1.1rem;
+            color: #555;
+            text-align: left;
+        }
+
+        .about-image img {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Services */
+        #services {
+            background-color: var(--white-bg);
+        }
+
+        .service-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .service-item {
+            background-color: var(--light-grey-bg);
+            border: 1px solid #e0e0e0;
+            padding: 30px 25px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .service-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .service-item h4 {
+            font-size: 1.2rem;
+            margin-top: 0;
+            margin-bottom: 10px;
+            color: var(--primary-color);
+        }
+
+        .service-item p {
+            font-size: 0.95rem;
+            color: #555;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+            text-align: center;
+            margin-top: 40px;
+        }
+
+        .stat-item {
+            padding: 20px;
+        }
+
+        .stat-item .number {
+            font-size: 3rem;
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+
+        .stat-item .title {
+            font-weight: bold;
+            margin-top: 5px;
+        }
+
+        .stat-item .description {
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        /* Partners */
+        #partners {
+            background-color: var(--light-grey-bg);
+        }
+
+        .partners-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 40px;
+            align-items: center;
+        }
+
+        .partner-logo {
+            text-align: center;
+        }
+
+        .partner-logo img {
+            max-width: 130px;
+            filter: grayscale(100%);
+            transition: filter 0.3s ease;
+            opacity: 0.7;
+        }
+
+        .partner-logo img:hover {
+            filter: grayscale(0%);
+            opacity: 1;
+        }
+
+        /* Portfolio */
+        #portfolio {
+            background-color: var(--white-bg);
+        }
+
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+        }
+
+        .case-item {
+            background-color: #fcfcfc;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            border: 1px solid #e0e0e0;
+        }
+
+        .case-content {
+            padding: 20px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .case-content p {
+            font-size: 0.95rem;
+            color: #555;
+            margin-bottom: 15px;
+        }
+
+        .case-result {
+            margin-top: auto;
+            padding-top: 15px;
+            border-top: 1px dashed #ddd;
+            font-weight: bold;
+            color: #006400;
+        }
+
+        .case-result::before {
+            content: '✨ ';
+        }
+
+        .video-container {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            overflow: hidden;
+            max-width: 100%;
+            background: #000;
+        }
+
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        /* Future Outlook */
+        #future {
+            background-color: var(--light-grey-bg);
+        }
+
+        .future-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: flex-start;
+        }
+
+        .future-item p {
+            font-size: 0.95rem;
+            color: #555;
+        }
+
+        /* Slideshow CSS (通用) */
+        .slideshow-container {
+            width: 100%;
+            position: relative;
+            margin: auto;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .mySlides {
+            display: none;
+        }
+
+        .mySlides img {
+            width: 100%;
+            vertical-align: middle;
+        }
+
+        .slideshow-container .prev,
+        .slideshow-container .next {
+            cursor: pointer;
+            position: absolute;
+            bottom: 15px;
+            right: 15px;
+            width: auto;
+            padding: 10px 15px;
+            color: white;
+            font-weight: bold;
+            font-size: 18px;
+            transition: 0.3s ease;
+            border-radius: 5px;
+            background-color: rgba(0, 0, 0, 0.4);
+            user-select: none;
+        }
+
+        .slideshow-container .prev {
+            right: 80px;
+        }
+
+        .slideshow-container .prev:hover,
+        .slideshow-container .next:hover {
+            background-color: rgba(0, 0, 0, 0.8);
+        }
+
+        .dots-container {
+            text-align: center;
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .dot {
+            cursor: pointer;
+            height: 12px;
+            width: 12px;
+            margin: 0 5px;
+            background-color: rgba(255, 255, 255, 0.5);
+            border: 1px solid rgba(0, 0, 0, 0.2);
+            border-radius: 50%;
+            display: inline-block;
+            transition: background-color 0.3s ease;
+        }
+
+        .dot.active,
+        .dot:hover {
+            background-color: var(--white-bg);
+            border-color: var(--primary-color);
+        }
+
+        .fade {
+            animation-name: fade;
+            animation-duration: 1.5s;
+        }
+
+        @keyframes fade {
+            from {
+                opacity: .4
+            }
+
+            to {
+                opacity: 1
+            }
+        }
+
+        /* Contact */
+        #contact {
+            background-color: var(--white-bg);
+        }
+
+        .contact-intro {
+            font-size: 1.2rem;
+            text-align: center;
+            max-width: 600px;
+            margin: -30px auto 40px;
+            color: #333;
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1.2fr;
+            gap: 40px;
+            align-items: center;
+        }
+
+        .contact-info p {
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .contact-info strong {
+            display: inline-block;
+            width: 90px;
+            flex-shrink: 0;
+            color: var(--primary-color);
+        }
+
+        .line-button {
+            display: inline-block;
+            background-color: var(--line-green);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+            margin-top: 10px;
+        }
+
+        .line-button:hover {
+            background-color: #05a547;
+        }
+
+        .map-container {
+            width: 100%;
+            height: 400px;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .map-container iframe {
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+
+        /* Footer */
+        footer {
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            padding: 20px;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            nav a {
+                margin-left: 15px;
+            }
+
+            .about-grid,
+            .future-grid,
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .about-text {
+                text-align: center;
+            }
+
+            .about-image {
+                margin-top: 30px;
+                max-width: 500px;
+                margin-left: auto;
+                margin-right: auto;
+            }
+
+            .service-grid,
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .stat-item {
+                padding-top: 20px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            header {
+                padding: 0 20px;
+            }
+
+            nav {
+                display: none;
+            }
+
+            .menu-toggle {
+                display: block;
+            }
+
+            h2 {
+                font-size: 2rem;
+            }
+
+            .service-grid,
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <div class="logo"><a href="#"><img
+                    src="https://static.wixstatic.com/media/427b88_9d39dc3657f947f7be73f7c3a4f3cbf4~mv2.png/v1/fill/w_440,h_130,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/427b88_9d39dc3657f947f7be73f7c3a4f3cbf4~mv2.png"
+                    alt="柏勝科技有限公司 Logo"></a></div>
+        <nav>
+            <a href="#about">關於我們</a><a href="#services">解決方案</a><a href="#portfolio">成功案例</a><a
+                href="#future">未來展望</a><a href="#contact">與我們聯絡</a><a href="#contact" class="cta-button">預約免費諮詢</a>
+        </nav>
+        <div class="menu-toggle">☰</div>
+    </header>
+
+    <main>
+        <section id="about">
+            <div class="container">
+                <h2>關於我們</h2>
+                <p class="section-subtitle">我們不僅是系統整合商，更是您實現智慧製造、提升產能的最佳技術夥伴。</p>
+                <div class="about-grid">
+                    <div class="about-text">
+                        <h3>智慧製造系統整合專家</h3>
+                        <p class="value-prop"><!-- TODO: 提煉一句話的核心價值主張 -->憑藉15年產業深耕經驗與AI技術，我們為您打造無縫整合的自動化產線，最大化您的投資回報率。
+                        </p>
+                        <p>如何導入自動化從事生產及快速回收投資成本，是企業一直以來面臨的重要課題，柏勝科技擁有多年自動化系統整合與應用經驗，可以為您打造完整的一站式自動化服務：從前期評估、流程設計、系統發包、在線調試及售後服務，大幅降低整合時間、人力投入成本，並建構新型態自動化整合系統讓您產能最大化，掌握邁向工業4.0
+                            的契機。</p>
+                    </div>
+                    <div class="about-image"><!-- TODO: 請替換成您自己的公司形象圖片 --><img
+                            src="https://images.unsplash.com/photo-1567789884554-0b844b597180?q=80&w=1770&auto=format&fit=crop"
+                            alt="智慧製造系統整合示意圖"></div>
+                </div>
+            </div>
+        </section>
+
+        <section id="services">
+            <div class="container">
+                <h2>我們的解決方案</h2>
+                <p class="section-subtitle">從硬體客製化到軟體AI優化，我們提供一站式服務，解決您在自動化升級中的所有痛點。</p>
+                <div class="service-grid">
+                    <div class="service-item">
+                        <h4>半導體、面板產業客製化設備開發</h4>
+                        <p><!-- TODO: 增加一句好處描述 -->為您量身打造符合嚴苛製程需求的專用設備，提升產線靈活性與效率。</p>
+                    </div>
+                    <div class="service-item">
+                        <h4>AOI視覺檢測軟體開發</h4>
+                        <p><!-- TODO: 增加一句好處描述 -->導入獨家AI優化算法，將檢測錯誤率降至業界最低，確保產品質量。</p>
+                    </div>
+                    <div class="service-item">
+                        <h4>SECSGEM、BC系統開發</h4>
+                        <p><!-- TODO: 增加一句好處描述 -->實現機台間的無縫數據通訊，讓您的工廠數據可視化，管理更高效。</p>
+                    </div>
+                </div>
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <div class="number" data-target="15">0</div>
+                        <div class="title">年以上</div>
+                        <div class="description">業界實績，熟悉產業應用</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="number" data-target="100">0</div>
+                        <div class="title">家以上</div>
+                        <div class="description">成功案例，設計服務最佳化</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="number" data-target="20">0</div>
+                        <div class="title">家以上</div>
+                        <div class="description">合作供應商，給您完美作品</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="number" data-target="10">0</div>
+                        <div class="title">位夥伴</div>
+                        <div class="description">專業服務，穩定守護您的事業</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="partners">
+            <div class="container">
+                <h2>合作夥伴與認證</h2>
+                <p class="section-subtitle">我們的專業與服務，深受業界領導廠商的信賴與肯定。</p>
+                <div class="partners-grid">
+                    <!-- TODO: 替換成真實的合作夥伴 Logo -->
+                    <div class="partner-logo"><img src="https://via.placeholder.com/150x60/ccc/888?text=合作夥伴A"
+                            alt="合作夥伴A"></div>
+                    <div class="partner-logo"><img src="https://via.placeholder.com/150x60/ccc/888?text=知名客戶B"
+                            alt="知名客戶B"></div>
+                    <div class="partner-logo"><img src="https://via.placeholder.com/150x60/ccc/888?text=技術夥伴C"
+                            alt="技術夥伴C"></div>
+                    <div class="partner-logo"><img src="https://via.placeholder.com/150x60/ccc/888?text=供應商D"
+                            alt="供應商D"></div>
+                    <div class="partner-logo"><img src="https://via.placeholder.com/150x60/ccc/888?text=客戶E" alt="客戶E">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="portfolio">
+            <div class="container">
+                <h2>成功案例</h2>
+                <p class="section-subtitle">實績是最好的證明。了解我們如何為客戶創造具體價值。</p>
+                <div class="portfolio-grid">
+                    <div class="case-item">
+                        <div class="video-container">
+                            <iframe src="https://www.youtube.com/embed/LXb3EKWsInQ" title="一個範例影片" frameborder="0"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                allowfullscreen></iframe>
+                        </div>
+                        <div class="case-content">
+                            <h3>面板模組段自動塗膠機</h3>
+                            <p>可使用UV膠、銀膠於玻璃基板上進行塗膠與硬化作業，具備膠量控制與定期檢測與補償功能。</p>
+                            <p class="case-result"><!-- TODO: 替換成真實成果 -->為客戶提升15%產線良率，減少20%材料浪費。</p>
+                        </div>
+                    </div>
+                    <div class="case-item">
+                        <div class="video-container">
+                            <iframe src="https://www.youtube.com/embed/LXb3EKWsInQ" title="一個範例影片" frameborder="0"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                allowfullscreen></iframe>
+                        </div>
+                        <div class="case-content">
+                            <h3>半導體高速取放應用</h3>
+                            <p>擁有日製自動切割機品牌十餘年維護升級與改造作業經驗。</p>
+                            <p class="case-result"><!-- TODO: 替換成真實成果 -->機台稼動率提升至98%，維護成本降低30%。</p>
+                        </div>
+                    </div>
+                    <div class="case-item">
+                        <div class="video-container">
+                            <iframe src="https://www.youtube.com/embed/LXb3EKWsInQ" title="一個範例影片" frameborder="0"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                allowfullscreen></iframe>
+                        </div>
+                        <div class="case-content">
+                            <h3>半導體製程塗膠機</h3>
+                            <p>整合AOI視覺檢測與SECSGEM通訊功能，有導入Intel、ASE、Micon等實績。</p>
+                            <p class="case-result"><!-- TODO: 替換成真實成果 -->整合時程縮短50%，數據採集完整度100%。</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="future">
+            <div class="container">
+                <h2>未來展望</h2>
+                <p class="section-subtitle">我們不僅著眼現在，更專注於開發塑造未來的顛覆性技術。投資柏勝，就是投資工業製造的未來。</p>
+                <div class="future-grid">
+                    <div class="future-item">
+                        <h3>室內定位研發實作 (3D SLAM)</h3>
+                        <p>與成功大學航太所合作開發，可在無GPS訊號的嚴苛條件下為機器人或無人載具提供導航。<!-- TODO: 增加市場潛力 -->此技術未來可拓展至智慧倉儲、無人機巡檢等千億級別市場。</p>
+                        <!-- 【修改】從影片改為輪播 -->
+                        <div class="slideshow-container" id="slam-slideshow">
+                            <div class="mySlides fade"><!-- TODO: 替換成您的輪播照片 --><img
+                                    src="https://static.wixstatic.com/media/427b88_2d5eecb5bfe645d29828e8d9041e44c0~mv2.jpg/v1/fill/w_620,h_564,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/c11e4ccd-8d94-41bc-9b79-e9e4c687ee14.jpg"
+                                    alt="3D SLAM 點雲示意圖"></div>
+                            <div class="mySlides fade"><img
+                                    src="https://static.wixstatic.com/media/427b88_bd4b9c4d4b834cc297167ac6d5c9f744~mv2.jpg/v1/crop/x_256,y_0,w_1407,h_1280/fill/w_620,h_564,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/industrial-automation.jpg"
+                                    alt="機器人手臂與數位介面"></div>
+                            <div class="mySlides fade"><img
+                                    src="https://static.wixstatic.com/media/427b88_031624e6f8634f3bae8656cd575546e2~mv2.png/v1/fill/w_620,h_564,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/%E8%9E%A2%E5%B9%95%E6%93%B7%E5%8F%96%E7%95%AB%E9%9D%A2%202025-04-15%20150058.png"
+                                    alt="搭載感測器之無人機"></div>
+                            <a class="prev">&#10094;</a><a class="next">&#10095;</a>
+                            <div class="dots-container"></div>
+                        </div>
+                    </div>
+                    <div class="future-item">
+                        <h3>AI瑕疵檢測</h3>
+                        <p>自主開發AI優化AOI影像辨識率。將AI助攻AOI，涵蓋人工檢測的靈活度與機器檢測的高可靠性，錯誤率更低，辨識速度更快。</p>
+                        <div class="slideshow-container" id="ai-slideshow">
+                            <div class="mySlides fade"><!-- TODO: 替換成您的輪播照片 --><img
+                                    src="https://static.wixstatic.com/media/427b88_bd4b9c4d4b834cc297167ac6d5c9f744~mv2.jpg/v1/crop/x_256,y_0,w_1407,h_1280/fill/w_620,h_564,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/industrial-automation.jpg"
+                                    alt="AI檢測示意圖1"></div>
+                            <div class="mySlides fade"><img
+                                    src="https://static.wixstatic.com/media/427b88_031624e6f8634f3bae8656cd575546e2~mv2.png/v1/fill/w_620,h_564,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/%E8%9E%A2%E5%B9%95%E6%93%B7%E5%8F%96%E7%95%AB%E9%9D%A2%202025-04-15%20150058.png"
+                                    alt="AI檢測示意圖2"></div>
+                            <div class="mySlides fade"><img
+                                    src="https://static.wixstatic.com/media/427b88_2d5eecb5bfe645d29828e8d9041e44c0~mv2.jpg/v1/fill/w_620,h_564,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/c11e4ccd-8d94-41bc-9b79-e9e4c687ee14.jpg"
+                                    alt="AI檢測示意圖3"></div>
+                            <a class="prev">&#10094;</a><a class="next">&#10095;</a>
+                            <div class="dots-container"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact">
+            <div class="container">
+                <h2>與我們聯絡</h2>
+
+                <p class="contact-intro"><br>準備好讓您的產線進入工業4.0時代了嗎？或是想了解更多投資機會？<br>我們的專家在此為您服務。</p>
+                <div class="contact-grid">
+                    <div class="contact-info">
+                        <h3>柏勝科技有限公司</h3>
+                        <p><strong>地址：</strong>高雄市新興區中正三路25號13樓</p>
+                        <p><strong>電話：</strong>(07)3926992 / 0937059927</p>
+                        <p><strong>Email：</strong>boris@boson-tech.com.tw</p>
+                        <p><strong>Line ID：</strong><a href="https://line.me/ti/p/~bosontech" target="_blank"
+                                class="line-button">點此加好友 (bosontech)</a></p>
+                    </div>
+                    <div class="map-container"><iframe
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3682.493902375939!2d120.30594247596168!3d22.6354677292264!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x346e04870f789953%3A0x6b45d5811d57271e!2zODA36auY6ZuE5biC5paw6IiI5Y2A5Lit5q2j5LiJ6LevMjXomZ8xM-aokw!5e0!3m2!1szh-TW!2stw!4v1716361732641!5m2!1szh-TW!2stw"
+                            style="border:0;" allowfullscreen="" loading="lazy"
+                            referrerpolicy="no-referrer-when-downgrade"></iframe></div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 柏勝科技有限公司. All Rights Reserved.</p>
+    </footer>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            // --- 動態數字計數器 ---
+            const counters = document.querySelectorAll('.number');
+            const speed = 200;
+
+            const animateCounter = (counter) => {
+                const target = +counter.getAttribute('data-target');
+                const inc = Math.max(target / speed, 1);
+
+                const updateCount = () => {
+                    const count = +counter.innerText;
+                    if (count < target) {
+                        counter.innerText = Math.ceil(count + inc);
+                        setTimeout(updateCount, 10);
+                    } else {
+                        counter.innerText = target;
+                    }
+                };
+                updateCount();
+            };
+
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        counters.forEach(animateCounter);
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.5 });
+
+            const statsGrid = document.querySelector('.stats-grid');
+            if (statsGrid) {
+                observer.observe(statsGrid);
+            }
+
+            // --- 【修改】模組化照片輪播功能 ---
+            function initializeSlideshow(container) {
+                if (!container) return;
+
+                let slideIndex = 1;
+                let slideInterval;
+                const slides = container.getElementsByClassName("mySlides");
+                const dotsContainer = container.querySelector(".dots-container");
+                const prevButton = container.querySelector(".prev");
+                const nextButton = container.querySelector(".next");
+
+                if (slides.length === 0) return;
+
+                // 動態生成圓點
+                dotsContainer.innerHTML = "";
+                for (let i = 0; i < slides.length; i++) {
+                    const dot = document.createElement("span");
+                    dot.classList.add("dot");
+                    dot.onclick = () => currentSlide(i + 1);
+                    dotsContainer.appendChild(dot);
+                }
+                const dots = dotsContainer.getElementsByClassName("dot");
+
+                const startSlideshow = () => {
+                    stopSlideshow();
+                    slideInterval = setInterval(() => plusSlides(1), 4000);
+                };
+
+                const stopSlideshow = () => {
+                    clearInterval(slideInterval);
+                };
+
+                const plusSlides = (n) => {
+                    stopSlideshow();
+                    showSlides(slideIndex += n);
+                };
+
+                const currentSlide = (n) => {
+                    stopSlideshow();
+                    showSlides(slideIndex = n);
+                };
+
+                const showSlides = (n) => {
+                    if (n > slides.length) { slideIndex = 1; }
+                    if (n < 1) { slideIndex = slides.length; }
+
+                    for (let i = 0; i < slides.length; i++) {
+                        slides[i].style.display = "none";
+                    }
+                    for (let i = 0; i < dots.length; i++) {
+                        dots[i].className = dots[i].className.replace(" active", "");
+                    }
+
+                    slides[slideIndex - 1].style.display = "block";
+                    dots[slideIndex - 1].className += " active";
+                };
+
+                prevButton.onclick = () => plusSlides(-1);
+                nextButton.onclick = () => plusSlides(1);
+
+                showSlides(slideIndex);
+                startSlideshow();
+            }
+
+            // 初始化頁面上所有的輪播實例
+            document.querySelectorAll('.slideshow-container').forEach(initializeSlideshow);
+        });
+    </script>
+</body>
+
+</html>
