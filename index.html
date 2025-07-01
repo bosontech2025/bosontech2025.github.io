@@ -5,10 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>柏勝科技有限公司 - 智慧製造系統整合專家</title>
-    <!-- TODO: 將 logo.png 換成您的 favicon 檔案 -->
-    <link rel="icon"
-        href="https://static.wixstatic.com/media/427b88_9d39dc3657f947f7be73f7c3a4f3cbf4~mv2.png/v1/fill/w_32,h_32,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/427b88_9d39dc3657f947f7be73f7c3a4f3cbf4~mv2.png"
-        type="image/png">
+    <link rel="icon" href="./Images/LOGO_RECT.png" type="image/png">
     <style>
         :root {
             --primary-color: #0d47a1;
@@ -17,13 +14,12 @@
             --text-color: #333;
             --header-height: 80px;
             --line-green: #06C755;
-            
+
             --morandi-blue: #5681c4;
             --morandi-blue-dark: #4a72b0;
-            
-            /* 【新增】漸層背景色變數 */
-            --gradient-start: #0f172a; /* 深邃海軍藍 */
-            --gradient-end: #3b5998;   /* 科技感藍 */
+
+            --gradient-start: #0f172a;
+            --gradient-end: #3b5998;
         }
 
         html {
@@ -145,7 +141,6 @@
             text-align: center;
             color: white;
             overflow: hidden;
-            /* 【修改】改用漸層背景 */
             background: linear-gradient(135deg, var(--gradient-start) 0%, var(--gradient-end) 100%);
             padding: 0;
         }
@@ -168,8 +163,15 @@
         }
 
         @keyframes fadeInContent {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         .hero-content h1 {
@@ -177,7 +179,7 @@
             font-weight: 700;
             margin-bottom: 20px;
             color: #ffffff;
-            text-shadow: 0 0 15px rgba(86, 129, 196, 0.6); 
+            text-shadow: 0 0 15px rgba(86, 129, 196, 0.6);
         }
 
         .hero-content p {
@@ -190,22 +192,23 @@
         }
 
         .hero-cta {
-            background-color: var(--morandi-blue);
+            background-color: #4CAF50;
             color: white !important;
             padding: 15px 30px;
             font-size: 1.2rem;
             font-weight: bold;
-            border: 1px solid var(--morandi-blue);
+            border: 1px solid #4CAF50;
             border-radius: 5px;
             text-decoration: none;
         }
+
         .hero-cta:hover {
-            background-color: var(--morandi-blue-dark);
-            border-color: var(--morandi-blue-dark);
+            background-color: #45a049;
+            border-color: #45a049;
             transform: translateY(-2px);
             box-shadow: 0 4px 10px rgba(86, 129, 196, 0.25);
         }
-        
+
         /* Scroll Down Arrow */
         .scroll-down-arrow {
             position: absolute;
@@ -214,6 +217,7 @@
             transform: translateX(-50%);
             z-index: 2;
         }
+
         .scroll-down-arrow span {
             display: block;
             width: 20px;
@@ -225,16 +229,29 @@
             animation: scroll-anim 2s infinite;
             opacity: 0;
         }
+
         .scroll-down-arrow span:nth-child(2) {
             animation-delay: -0.2s;
         }
+
         .scroll-down-arrow span:nth-child(3) {
             animation-delay: -0.4s;
         }
+
         @keyframes scroll-anim {
-            0% { opacity: 0; transform: rotate(45deg) translate(-20px, -20px); }
-            50% { opacity: 1; }
-            100% { opacity: 0; transform: rotate(45deg) translate(20px, 20px); }
+            0% {
+                opacity: 0;
+                transform: rotate(45deg) translate(-20px, -20px);
+            }
+
+            50% {
+                opacity: 1;
+            }
+
+            100% {
+                opacity: 0;
+                transform: rotate(45deg) translate(20px, 20px);
+            }
         }
 
         /* About Us */
@@ -536,9 +553,21 @@
             }
         }
 
-        /* Contact */
+        /* --- Contact Section --- */
         #contact {
-            background-color: var(--white-bg);
+            background-color: var(--light-grey-bg);
+            padding: 120px 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        #contact-canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
         }
 
         .contact-intro {
@@ -547,20 +576,45 @@
             max-width: 600px;
             margin: -30px auto 40px;
             color: #333;
+            position: relative;
+            z-index: 1;
         }
 
         .contact-grid {
             display: grid;
-            grid-template-columns: 1fr 1.2fr;
+            grid-template-columns: 1fr 1fr;
             gap: 40px;
-            align-items: center;
+            align-items: stretch;
+            position: relative;
+            z-index: 1;
+        }
+
+        .contact-card {
+            background: rgba(255, 255, 255, 0.75);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 40px;
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.1);
+            border-radius: 16px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .contact-card h3 {
+            margin-bottom: 25px;
         }
 
         .contact-info p {
-            margin-bottom: 15px;
+            margin-bottom: 20px;
             font-size: 1.1rem;
             display: flex;
-            align-items: center;
+            align-items: flex-start;
+        }
+
+        .contact-info p:last-child {
+            margin-bottom: 0;
         }
 
         .contact-info strong {
@@ -568,30 +622,64 @@
             width: 90px;
             flex-shrink: 0;
             color: var(--primary-color);
+            padding-top: 5px;
         }
 
-        .line-button {
+        /* --- 【新增】全新 Line 按鈕區塊 --- */
+        .line-button-container {
+            margin-top: 25px;
+            /* 與上方內容的間距 */
+            text-align: center;
+            /* 讓內部元素居中 */
+        }
+
+        .line-button-wrapper {
+            position: relative;
             display: inline-block;
-            background-color: var(--line-green);
+            /* 讓 wrapper 的寬度由按鈕決定 */
+        }
+
+        .line-add-button {
+            display: inline-flex;
+            align-items: center;
+            text-decoration: none;
+            background-color: #06c755;
             color: white;
             padding: 10px 20px;
-            border-radius: 5px;
-            text-decoration: none;
+            border-radius: 8px;
             font-weight: bold;
-            transition: background-color 0.3s ease;
-            margin-top: 10px;
+            font-size: 1.1rem;
+            box-shadow: 0 4px 15px rgba(6, 199, 85, 0.2);
+            transition: all 0.3s ease;
         }
 
-        .line-button:hover {
-            background-color: #05a547;
+        .line-add-button:hover {
+            background-color: #05a947;
+            box-shadow: 0 6px 20px rgba(6, 199, 85, 0.3);
+            transform: translateY(-2px);
         }
+
+        .line-add-button img {
+            width: 28px;
+            height: 28px;
+            margin-right: 12px;
+        }
+
+        .line-id-caption {
+            align-items: center;
+
+            font-size: 0.8rem;
+            color: #777;
+        }
+
 
         .map-container {
             width: 100%;
-            height: 400px;
-            border-radius: 8px;
+            height: 100%;
+            min-height: 450px;
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.1);
+            border-radius: 16px;
             overflow: hidden;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
         }
 
         .map-container iframe {
@@ -662,10 +750,18 @@
             .stats-grid {
                 grid-template-columns: 1fr;
             }
-            
-            .hero-content h1 { font-size: 2.5rem; }
-            .hero-content p { font-size: 1.2rem; }
-            #hero { height: 90vh; }
+
+            .hero-content h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero-content p {
+                font-size: 1.2rem;
+            }
+
+            #hero {
+                height: 90vh;
+            }
         }
     </style>
 </head>
@@ -682,7 +778,7 @@
     </header>
 
     <main>
-        <!-- 【Hero Section】 -->
+        <!-- Hero Section -->
         <section id="hero">
             <canvas id="hero-canvas"></canvas>
             <div class="hero-content">
@@ -701,17 +797,16 @@
         <section id="about">
             <div class="container">
                 <h2>關於我們</h2>
-                <p class="section-subtitle">我們不僅是系統整合商，更是您實現智慧製造、提升產能的最佳技術夥伴。</p>
+                <p class="section-subtitle">我們不僅是系統整合商，更是您實現智慧製造、提升產能的最佳技術夥伴</p>
                 <div class="about-grid">
                     <div class="about-text">
                         <h3>智慧製造系統整合專家</h3>
-                        <p class="value-prop"><!-- TODO: 提煉一句話的核心價值主張 -->憑藉15年產業深耕經驗與AI技術，我們為您打造無縫整合的自動化產線，最大化您的投資回報率。
+                        <p class="value-prop">憑藉15年產業深耕經驗與AI技術，我們為您打造無縫整合的自動化產線，最大化您的投資回報率。
                         </p>
                         <p>如何導入自動化從事生產及快速回收投資成本，是企業一直以來面臨的重要課題，柏勝科技擁有多年自動化系統整合與應用經驗，可以為您打造完整的一站式自動化服務：從前期評估、流程設計、系統發包、在線調試及售後服務，大幅降低整合時間、人力投入成本，並建構新型態自動化整合系統讓您產能最大化，掌握邁向工業4.0
                             的契機。</p>
                     </div>
-                    <div class="about-image"><!-- TODO: 請替換成您自己的公司形象圖片 --><img src="./Images/AboutUS.jpg"
-                            alt="智慧製造系統整合示意圖"></div>
+                    <div class="about-image"><img src="./Images/AboutUS.jpg" alt="智慧製造系統整合示意圖"></div>
                 </div>
             </div>
         </section>
@@ -719,19 +814,19 @@
         <section id="services">
             <div class="container">
                 <h2>我們的解決方案</h2>
-                <p class="section-subtitle">從硬體客製化到軟體AI優化，我們提供一站式服務，解決您在自動化升級中的所有痛點。</p>
+                <p class="section-subtitle">從硬體客製化到軟體AI優化，我們提供一站式服務，解決您在自動化升級中的所有痛點</p>
                 <div class="service-grid">
                     <div class="service-item">
                         <h4>半導體、面板產業客製化設備開發</h4>
-                        <p><!-- TODO: 增加一句好處描述 -->為您量身打造符合嚴苛製程需求的專用設備，提升產線靈活性與效率。</p>
+                        <p>為您量身打造符合嚴苛製程需求的專用設備，提升產線靈活性與效率。</p>
                     </div>
                     <div class="service-item">
                         <h4>AOI視覺檢測軟體開發</h4>
-                        <p><!-- TODO: 增加一句好處描述 -->導入獨家AI優化算法，將檢測錯誤率降至業界最低，確保產品質量。</p>
+                        <p>導入獨家AI優化算法，將檢測錯誤率降至業界最低，確保產品質量。</p>
                     </div>
                     <div class="service-item">
                         <h4>SECSGEM、BC系統開發</h4>
-                        <p><!-- TODO: 增加一句好處描述 -->實現機台間的無縫數據通訊，讓您的工廠數據可視化，管理更高效。</p>
+                        <p>實現機台間的無縫數據通訊，讓您的工廠數據可視化，管理更高效。</p>
                     </div>
                 </div>
                 <div class="stats-grid">
@@ -762,9 +857,8 @@
         <section id="partners">
             <div class="container">
                 <h2>合作夥伴與認證</h2>
-                <p class="section-subtitle">我們的專業與服務，深受業界領導廠商的信賴與肯定。</p>
+                <p class="section-subtitle">我們的專業與服務，深受業界領導廠商的信賴與肯定</p>
                 <div class="partners-grid">
-                    <!-- TODO: 替換成真實的合作夥伴 Logo -->
                     <div class="partner-logo"><img src="./Images/Customer_Intel.png" alt="知名客戶"></div>
                     <div class="partner-logo"><img src="./Images/Customer_AMD.png" alt="知名客戶"></div>
                     <div class="partner-logo"><img src="./Images/Customer_ASE.png" alt="知名客戶"></div>
@@ -778,7 +872,7 @@
         <section id="portfolio">
             <div class="container">
                 <h2>成功案例</h2>
-                <p class="section-subtitle">實績是最好的證明。了解我們如何為客戶創造具體價值。</p>
+                <p class="section-subtitle">實績是最好的證明，了解我們如何為客戶創造具體價值</p>
                 <div class="portfolio-grid">
                     <div class="case-item">
                         <div class="video-container">
@@ -791,7 +885,7 @@
                         <div class="case-content">
                             <h3>面板模組段自動塗膠機</h3>
                             <p>可使用UV膠、銀膠於玻璃基板上進行塗膠與硬化作業，具備膠量控制與定期檢測與補償功能。</p>
-                            <p class="case-result"><!-- TODO: 替換成真實成果 -->為客戶提升15%產線良率，減少20%材料浪費。</p>
+                            <p class="case-result">為客戶提升15%產線良率，減少20%材料浪費。</p>
                         </div>
                     </div>
                     <div class="case-item">
@@ -807,7 +901,7 @@
                             <p>晶粒黏著機(Die Attach Machine) ：用吸頭（Vacuum Nozzle）從晶圓切割好的晶粒盤（Die Tape 或 Wafer
                                 Frame）上精準取下單顆晶粒並使用高解析度視覺系統（Vision Alignment System）偵測晶粒與基板定位點。</p>
                             <p class="case-result">
-                                <!-- TODO: 替換成真實成果 -->藉由微米級的視覺對位精度，實現晶粒無偏差的精準貼合，從源頭根除因黏著失誤造成的良率損失，UPH大於10k/Hr。
+                                藉由微米級的視覺對位精度，實現晶粒無偏差的精準貼合，從源頭根除因黏著失誤造成的良率損失，UPH大於10k/Hr。
                             </p>
                         </div>
                     </div>
@@ -824,7 +918,7 @@
                             <p>透過精準的膠材填充，吸收晶片與基板間的熱應力與機械衝擊，從根本上提升高階晶片封裝的可靠度與產品壽命。整合AOI視覺檢測與SECSGEM通訊功能，有導入Intel、ASE、Micon等實績。
                             </p>
                             <p class="case-result">
-                                <!-- TODO: 替換成真實成果 -->以精準無氣泡的底部填充，確保每一顆晶片的結構完整性，從源頭杜絕因應力造成的潛在失效風險，良率超越99%。
+                                以精準無氣泡的底部填充，確保每一顆晶片的結構完整性，從源頭杜絕因應力造成的潛在失效風險，良率超越99%。
                             </p>
                         </div>
                     </div>
@@ -841,7 +935,7 @@
                             <p>植球機(BGA Ball Placement Machine)：用於在BGA（Ball Grid Array）封裝的IC底部精確放置錫球（Solder
                                 Balls），球徑可達0.2mm，並包含植球後AOI，可於植球後進行自動檢查與補償調整。</p>
                             <p class="case-result">
-                                <!-- TODO: 替換成真實成果 -->以閉迴路(Closed-loop)的補償調整，實現對微米級錫球的完美控制，滿足高階封裝的嚴苛需求。
+                                以閉迴路(Closed-loop)的補償調整，實現對微米級錫球的完美控制，滿足高階封裝的嚴苛需求。
                             </p>
                         </div>
                     </div>
@@ -856,7 +950,7 @@
                         <div class="case-content">
                             <h3>3D AOI自動量測檢查</h3>
                             <p>配合APPLE以雷射線掃描開發手機元件3D檢測功能，進行產品規格與數據分析。</p>
-                            <p class="case-result"><!-- TODO: 替換成真實成果 -->大幅提升產品穩定性與壽命。</p>
+                            <p class="case-result">大幅提升產品穩定性與壽命。</p>
                         </div>
                     </div>
                     <div class="case-item">
@@ -870,7 +964,7 @@
                         <div class="case-content">
                             <h3>嵌入式控制器</h3>
                             <p>客製化嵌入式控制器可應用於現有設備，在頻域與時域模式下進行訊號分析以達到之異常偵測，避免因設備失效影響製程之風險。</p>
-                            <p class="case-result"><!-- TODO: 替換成真實成果 -->更高的稼動率、更低的維護成本、更好的產品品質、更安全的生產環境。</p>
+                            <p class="case-result">更高的稼動率、更低的維護成本、更好的產品品質、更安全的生產環境。</p>
                         </div>
                     </div>
                 </div>
@@ -880,15 +974,13 @@
         <section id="future">
             <div class="container">
                 <h2>未來展望</h2>
-                <p class="section-subtitle">我們不僅著眼現在，更專注於開發塑造未來的顛覆性技術。投資柏勝，就是投資工業製造的未來。</p>
+                <p class="section-subtitle">我們不僅著眼現在，更專注於開發塑造未來的顛覆性技術<br>投資柏勝，就是投資工業製造的未來</p>
                 <div class="future-grid">
                     <div class="future-item">
                         <h3>室內定位研發實作 (3D SLAM)</h3>
-                        <p>與成功大學航太所合作開發，可在無GPS訊號的嚴苛條件下為機器人或無人載具提供導航。<!-- TODO: 增加市場潛力 -->此技術未來可拓展至智慧倉儲、無人機巡檢等千億級別市場。</p>
-                        <!-- 【修改】從影片改為輪播 -->
+                        <p>與成功大學航太所合作開發，可在無GPS訊號的嚴苛條件下為機器人或無人載具提供導航。此技術未來可拓展至智慧倉儲、無人機巡檢等千億級別市場。</p>
                         <div class="slideshow-container" id="slam-slideshow">
-                            <div class="mySlides fade"><!-- TODO: 替換成您的輪播照片 --><img src="./Images/SLAM_1.png"
-                                    alt="3D SLAM 點雲示意圖"></div>
+                            <div class="mySlides fade"><img src="./Images/SLAM_1.png" alt="3D SLAM 點雲示意圖"></div>
                             <div class="mySlides fade"><img src="./Images/SLAM_2.png" alt="3D SLAM 點雲示意圖"></div>
                             <div class="mySlides fade"><img src="./Images/SLAM_3.png" alt="3D SLAM 點雲示意圖"></div>
                             <a class="prev">&#10094;</a><a class="next">&#10095;</a>
@@ -899,14 +991,10 @@
                         <h3>AI瑕疵檢測</h3>
                         <p>自主開發AI優化AOI影像辨識率。將AI助攻AOI，涵蓋人工檢測的靈活度與機器檢測的高可靠性，錯誤率更低，辨識速度更快。</p>
                         <div class="slideshow-container" id="ai-slideshow">
-                            <div class="mySlides fade"><!-- TODO: 替換成您的輪播照片 --><img src="./Images/AI_1.png"
-                                    alt="AI檢測示意圖1"></div>
-                            <div class="mySlides fade"><!-- TODO: 替換成您的輪播照片 --><img src="./Images/AI_2.png"
-                                    alt="AI檢測示意圖2"></div>
-                            <div class="mySlides fade"><!-- TODO: 替換成您的輪播照片 --><img src="./Images/AI_3.png"
-                                    alt="AI檢測示意圖3"></div>
-                            <div class="mySlides fade"><!-- TODO: 替換成您的輪播照片 --><img src="./Images/AI_4.png"
-                                    alt="AI檢測示意圖4"></div>
+                            <div class="mySlides fade"><img src="./Images/AI_1.png" alt="AI檢測示意圖1"></div>
+                            <div class="mySlides fade"><img src="./Images/AI_2.png" alt="AI檢測示意圖2"></div>
+                            <div class="mySlides fade"><img src="./Images/AI_3.png" alt="AI檢測示意圖3"></div>
+                            <div class="mySlides fade"><img src="./Images/AI_4.png" alt="AI檢測示意圖4"></div>
                             <a class="prev">&#10094;</a><a class="next">&#10095;</a>
                             <div class="dots-container"></div>
                         </div>
@@ -915,19 +1003,31 @@
             </div>
         </section>
 
+        <!-- 【修改】Contact Section -->
         <section id="contact">
+            <canvas id="contact-canvas"></canvas>
             <div class="container">
                 <h2>與我們聯絡</h2>
-
-                <p class="contact-intro"><br>準備好讓您的產線進入AI與工業4.0時代了嗎？或是想了解更多投資機會？<br>我們的專家在此為您服務。</p>
+                <p class="contact-intro"><br>準備好讓您的產線進入AI與工業4.0時代了嗎?<br>我們的專家在此為您服務，歡迎隨時與我們聯繫。</p>
                 <div class="contact-grid">
-                    <div class="contact-info">
-                        <h3>柏勝科技有限公司</h3>
-                        <p><strong>地址：</strong>高雄市新興區中正三路25號13樓</p>
-                        <p><strong>電話：</strong>(07)3926992 / 0937059927</p>
-                        <p><strong>Email：</strong>boris@boson-tech.com.tw</p>
-                        <p><strong>Line ID：</strong><a href="https://line.me/ti/p/~bosontech" target="_blank"
-                                class="line-button">點此加好友 (bosontech)</a></p>
+                    <div class="contact-card">
+                        <div class="contact-info">
+                            <h3>柏勝科技有限公司</h3>
+                            <p><strong>地址：</strong><span>高雄市新興區中正三路25號13樓</span></p>
+                            <p><strong>電話：</strong><span>(07)3926992 / 0937059927</span></p>
+                            <p><strong>Email：</strong><span>boris@boson-tech.com.tw</span></p>
+                            <br><br>
+                            <!-- 【新增】全新 Line 按鈕區塊 -->
+                            <div class="line-button-container">
+                                <div class="line-button-wrapper">
+                                    <a href="https://line.me/ti/p/~bosontech" target="_blank" class="line-add-button">
+                                        <img src="./Images/Line.png" alt="Line Logo">
+                                        加入我的Line
+                                    </a>
+                                    <span class="line-id-caption"><br>Line ID : BosonTech</span>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     <div class="map-container"><iframe
                             src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3682.493902375939!2d120.30594247596168!3d22.6354677292264!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x346e04870f789953%3A0x6b45d5811d57271e!2zODA36auY6ZuE5biC5paw6IiI5Y2A5Lit5q2j5LiJ6LevMjXomZ8xM-aokw!5e0!3m2!1szh-TW!2stw!4v1716361732641!5m2!1szh-TW!2stw"
@@ -944,12 +1044,12 @@
 
     <script>
         document.addEventListener("DOMContentLoaded", function () {
-            
+
             // --- Hero Canvas Particle Animation ---
             const heroSection = document.getElementById('hero');
-            const canvas = document.getElementById('hero-canvas');
-            if (heroSection && canvas) {
-                const ctx = canvas.getContext('2d');
+            const heroCanvas = document.getElementById('hero-canvas');
+            if (heroSection && heroCanvas) {
+                const ctx = heroCanvas.getContext('2d');
                 let particles = [];
                 let animationFrameId;
 
@@ -959,16 +1059,15 @@
                     'rgba(229, 231, 235, 0.7)'
                 ];
 
-                const setupCanvas = () => {
-                    canvas.width = heroSection.offsetWidth;
-                    canvas.height = heroSection.offsetHeight;
-                    createParticles();
+                const setupCanvas = (canvas, container) => {
+                    canvas.width = container.offsetWidth;
+                    canvas.height = container.offsetHeight;
                 };
 
                 class Particle {
                     constructor() {
-                        this.x = Math.random() * canvas.width;
-                        this.y = Math.random() * canvas.height;
+                        this.x = Math.random() * heroCanvas.width;
+                        this.y = Math.random() * heroCanvas.height;
                         this.size = Math.random() * 2 + 1;
                         this.speedX = Math.random() * 0.8 - 0.4;
                         this.speedY = Math.random() * 0.8 - 0.4;
@@ -978,8 +1077,8 @@
                         this.x += this.speedX;
                         this.y += this.speedY;
 
-                        if (this.x > canvas.width + this.size || this.x < -this.size) this.x = Math.random() * canvas.width;
-                        if (this.y > canvas.height + this.size || this.y < -this.size) this.y = Math.random() * canvas.height;
+                        if (this.x > heroCanvas.width + this.size || this.x < -this.size) this.x = Math.random() * heroCanvas.width;
+                        if (this.y > heroCanvas.height + this.size || this.y < -this.size) this.y = Math.random() * heroCanvas.height;
                     }
                     draw() {
                         ctx.fillStyle = this.color;
@@ -991,7 +1090,7 @@
 
                 const createParticles = () => {
                     particles = [];
-                    const particleCount = (canvas.width * canvas.height) / 12000;
+                    const particleCount = (heroCanvas.width * heroCanvas.height) / 12000;
                     for (let i = 0; i < particleCount; i++) {
                         particles.push(new Particle());
                     }
@@ -1016,46 +1115,116 @@
                     }
                 };
 
-                const animate = () => {
-                    ctx.clearRect(0, 0, canvas.width, canvas.height);
-                    particles.forEach(p => {
-                        p.update();
-                        p.draw();
-                    });
+                const animateHero = () => {
+                    ctx.clearRect(0, 0, heroCanvas.width, heroCanvas.height);
+                    particles.forEach(p => { p.update(); p.draw(); });
                     connectParticles();
-                    animationFrameId = requestAnimationFrame(animate);
+                    animationFrameId = requestAnimationFrame(animateHero);
                 };
 
-                const startAnimation = () => {
+                const startHeroAnimation = () => {
                     if (!animationFrameId) {
-                        setupCanvas();
-                        animate();
+                        setupCanvas(heroCanvas, heroSection);
+                        createParticles();
+                        animateHero();
                     }
-                };
-
-                const stopAnimation = () => {
+                }
+                const stopHeroAnimation = () => {
                     if (animationFrameId) {
                         cancelAnimationFrame(animationFrameId);
                         animationFrameId = null;
                     }
-                };
+                }
 
                 const heroObserver = new IntersectionObserver((entries) => {
-                    entries.forEach(entry => {
-                        if (entry.isIntersecting) {
-                            startAnimation();
-                        } else {
-                            stopAnimation();
-                        }
-                    });
+                    entries.forEach(entry => entry.isIntersecting ? startHeroAnimation() : stopHeroAnimation());
                 }, { threshold: 0 });
-                
                 heroObserver.observe(heroSection);
+                window.addEventListener('resize', () => { stopHeroAnimation(); setTimeout(startHeroAnimation, 250); });
+            }
 
-                window.addEventListener('resize', () => {
-                    stopAnimation();
-                    setTimeout(startAnimation, 250);
-                });
+            // --- 【新增】Contact Section Orb Animation ---
+            const contactSection = document.getElementById('contact');
+            const contactCanvas = document.getElementById('contact-canvas');
+            if (contactSection && contactCanvas) {
+                const ctx = contactCanvas.getContext('2d');
+                let orbs = [];
+                let contactAnimationId;
+
+                const orbColors = [
+                    'rgba(86, 129, 196, 0.15)',
+                    'rgba(210, 214, 220, 0.15)'
+                ];
+
+                const setupContactCanvas = () => {
+                    contactCanvas.width = contactSection.offsetWidth;
+                    contactCanvas.height = contactSection.offsetHeight;
+                };
+
+                class Orb {
+                    constructor() {
+                        this.radius = Math.random() * 40 + 20;
+                        this.x = Math.random() * (contactCanvas.width - this.radius * 2) + this.radius;
+                        this.y = Math.random() * (contactCanvas.height - this.radius * 2) + this.radius;
+                        this.speedX = (Math.random() - 0.5) * 0.5;
+                        this.speedY = (Math.random() - 0.5) * 0.5;
+                        this.color = orbColors[Math.floor(Math.random() * orbColors.length)];
+                    }
+                    update() {
+                        this.x += this.speedX;
+                        this.y += this.speedY;
+
+                        if (this.x + this.radius > contactCanvas.width || this.x - this.radius < 0) {
+                            this.speedX *= -1;
+                        }
+                        if (this.y + this.radius > contactCanvas.height || this.y - this.radius < 0) {
+                            this.speedY *= -1;
+                        }
+                    }
+                    draw() {
+                        ctx.fillStyle = this.color;
+                        ctx.beginPath();
+                        ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                        ctx.fill();
+                    }
+                }
+
+                const createOrbs = () => {
+                    orbs = [];
+                    const orbCount = Math.floor((contactCanvas.width * contactCanvas.height) / 40000);
+                    for (let i = 0; i < orbCount; i++) {
+                        orbs.push(new Orb());
+                    }
+                };
+
+                const animateContact = () => {
+                    ctx.clearRect(0, 0, contactCanvas.width, contactCanvas.height);
+                    orbs.forEach(orb => {
+                        orb.update();
+                        orb.draw();
+                    });
+                    contactAnimationId = requestAnimationFrame(animateContact);
+                };
+
+                const startContactAnimation = () => {
+                    if (!contactAnimationId) {
+                        setupContactCanvas();
+                        createOrbs();
+                        animateContact();
+                    }
+                };
+                const stopContactAnimation = () => {
+                    if (contactAnimationId) {
+                        cancelAnimationFrame(contactAnimationId);
+                        contactAnimationId = null;
+                    }
+                };
+
+                const contactObserver = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => entry.isIntersecting ? startContactAnimation() : stopContactAnimation());
+                }, { threshold: 0 });
+                contactObserver.observe(contactSection);
+                window.addEventListener('resize', () => { stopContactAnimation(); setTimeout(startContactAnimation, 250); });
             }
 
             // --- 動態數字計數器 ---
@@ -1078,7 +1247,7 @@
                 updateCount();
             };
 
-            const observer = new IntersectionObserver((entries, observer) => {
+            const statsObserver = new IntersectionObserver((entries, observer) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
                         counters.forEach(animateCounter);
@@ -1089,7 +1258,7 @@
 
             const statsGrid = document.querySelector('.stats-grid');
             if (statsGrid) {
-                observer.observe(statsGrid);
+                statsObserver.observe(statsGrid);
             }
 
             // --- 模組化照片輪播功能 ---
@@ -1105,7 +1274,6 @@
 
                 if (slides.length === 0) return;
 
-                // 動態生成圓點
                 dotsContainer.innerHTML = "";
                 for (let i = 0; i < slides.length; i++) {
                     const dot = document.createElement("span");
@@ -1137,14 +1305,8 @@
                 const showSlides = (n) => {
                     if (n > slides.length) { slideIndex = 1; }
                     if (n < 1) { slideIndex = slides.length; }
-
-                    for (let i = 0; i < slides.length; i++) {
-                        slides[i].style.display = "none";
-                    }
-                    for (let i = 0; i < dots.length; i++) {
-                        dots[i].className = dots[i].className.replace(" active", "");
-                    }
-
+                    for (let i = 0; i < slides.length; i++) slides[i].style.display = "none";
+                    for (let i = 0; i < dots.length; i++) dots[i].className = dots[i].className.replace(" active", "");
                     slides[slideIndex - 1].style.display = "block";
                     dots[slideIndex - 1].className += " active";
                 };
@@ -1155,8 +1317,6 @@
                 showSlides(slideIndex);
                 startSlideshow();
             }
-
-            // 初始化頁面上所有的輪播實例
             document.querySelectorAll('.slideshow-container').forEach(initializeSlideshow);
         });
     </script>
