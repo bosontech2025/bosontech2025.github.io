@@ -17,6 +17,13 @@
             --text-color: #333;
             --header-height: 80px;
             --line-green: #06C755;
+            
+            --morandi-blue: #5681c4;
+            --morandi-blue-dark: #4a72b0;
+            
+            /* 【新增】漸層背景色變數 */
+            --gradient-start: #0f172a; /* 深邃海軍藍 */
+            --gradient-end: #3b5998;   /* 科技感藍 */
         }
 
         html {
@@ -126,6 +133,108 @@
             display: none;
             font-size: 2rem;
             cursor: pointer;
+        }
+
+        /* --- Hero Section with Canvas Animation --- */
+        #hero {
+            position: relative;
+            height: calc(100vh - var(--header-height));
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: white;
+            overflow: hidden;
+            /* 【修改】改用漸層背景 */
+            background: linear-gradient(135deg, var(--gradient-start) 0%, var(--gradient-end) 100%);
+            padding: 0;
+        }
+
+        #hero-canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            padding: 20px;
+            animation: fadeInContent 2s ease-in-out;
+            max-width: 90%;
+        }
+
+        @keyframes fadeInContent {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .hero-content h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: #ffffff;
+            text-shadow: 0 0 15px rgba(86, 129, 196, 0.6); 
+        }
+
+        .hero-content p {
+            font-size: 1.5rem;
+            margin-bottom: 40px;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+            color: #d1d5db;
+        }
+
+        .hero-cta {
+            background-color: var(--morandi-blue);
+            color: white !important;
+            padding: 15px 30px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            border: 1px solid var(--morandi-blue);
+            border-radius: 5px;
+            text-decoration: none;
+        }
+        .hero-cta:hover {
+            background-color: var(--morandi-blue-dark);
+            border-color: var(--morandi-blue-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(86, 129, 196, 0.25);
+        }
+        
+        /* Scroll Down Arrow */
+        .scroll-down-arrow {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 2;
+        }
+        .scroll-down-arrow span {
+            display: block;
+            width: 20px;
+            height: 20px;
+            border-bottom: 2px solid white;
+            border-right: 2px solid white;
+            transform: rotate(45deg);
+            margin: -10px;
+            animation: scroll-anim 2s infinite;
+            opacity: 0;
+        }
+        .scroll-down-arrow span:nth-child(2) {
+            animation-delay: -0.2s;
+        }
+        .scroll-down-arrow span:nth-child(3) {
+            animation-delay: -0.4s;
+        }
+        @keyframes scroll-anim {
+            0% { opacity: 0; transform: rotate(45deg) translate(-20px, -20px); }
+            50% { opacity: 1; }
+            100% { opacity: 0; transform: rotate(45deg) translate(20px, 20px); }
         }
 
         /* About Us */
@@ -553,6 +662,10 @@
             .stats-grid {
                 grid-template-columns: 1fr;
             }
+            
+            .hero-content h1 { font-size: 2.5rem; }
+            .hero-content p { font-size: 1.2rem; }
+            #hero { height: 90vh; }
         }
     </style>
 </head>
@@ -560,7 +673,7 @@
 <body>
 
     <header>
-        <div class="logo"><a href="#"><img src="./Images/LOGO_EN.png" alt="柏勝科技有限公司 Logo"></a></div>
+        <div class="logo"><a href="#hero"><img src="./Images/LOGO_EN.png" alt="柏勝科技有限公司 Logo"></a></div>
         <nav>
             <a href="#about">關於我們</a><a href="#services">解決方案</a><a href="#portfolio">成功案例</a><a
                 href="#future">未來展望</a><a href="#contact">與我們聯絡</a><a href="#contact" class="cta-button">預約免費諮詢</a>
@@ -569,6 +682,22 @@
     </header>
 
     <main>
+        <!-- 【Hero Section】 -->
+        <section id="hero">
+            <canvas id="hero-canvas"></canvas>
+            <div class="hero-content">
+                <h1>驅動未來，智造可能</h1>
+                <p>柏勝科技，您最信賴的 AI 智慧製造整合專家</p>
+                <a href="#about" class="hero-cta">探索我們的解決方案</a>
+            </div>
+            <a href="#about" class="scroll-down-arrow">
+                <span></span>
+                <span></span>
+                <span></span>
+            </a>
+        </section>
+
+
         <section id="about">
             <div class="container">
                 <h2>關於我們</h2>
@@ -815,6 +944,120 @@
 
     <script>
         document.addEventListener("DOMContentLoaded", function () {
+            
+            // --- Hero Canvas Particle Animation ---
+            const heroSection = document.getElementById('hero');
+            const canvas = document.getElementById('hero-canvas');
+            if (heroSection && canvas) {
+                const ctx = canvas.getContext('2d');
+                let particles = [];
+                let animationFrameId;
+
+                const particleColors = [
+                    'rgba(86, 129, 196, 0.8)',
+                    'rgba(127, 178, 204, 0.7)',
+                    'rgba(229, 231, 235, 0.7)'
+                ];
+
+                const setupCanvas = () => {
+                    canvas.width = heroSection.offsetWidth;
+                    canvas.height = heroSection.offsetHeight;
+                    createParticles();
+                };
+
+                class Particle {
+                    constructor() {
+                        this.x = Math.random() * canvas.width;
+                        this.y = Math.random() * canvas.height;
+                        this.size = Math.random() * 2 + 1;
+                        this.speedX = Math.random() * 0.8 - 0.4;
+                        this.speedY = Math.random() * 0.8 - 0.4;
+                        this.color = particleColors[Math.floor(Math.random() * particleColors.length)];
+                    }
+                    update() {
+                        this.x += this.speedX;
+                        this.y += this.speedY;
+
+                        if (this.x > canvas.width + this.size || this.x < -this.size) this.x = Math.random() * canvas.width;
+                        if (this.y > canvas.height + this.size || this.y < -this.size) this.y = Math.random() * canvas.height;
+                    }
+                    draw() {
+                        ctx.fillStyle = this.color;
+                        ctx.beginPath();
+                        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                        ctx.fill();
+                    }
+                }
+
+                const createParticles = () => {
+                    particles = [];
+                    const particleCount = (canvas.width * canvas.height) / 12000;
+                    for (let i = 0; i < particleCount; i++) {
+                        particles.push(new Particle());
+                    }
+                };
+
+                const connectParticles = () => {
+                    for (let a = 0; a < particles.length; a++) {
+                        for (let b = a; b < particles.length; b++) {
+                            const dx = particles[a].x - particles[b].x;
+                            const dy = particles[a].y - particles[b].y;
+                            const distance = Math.sqrt(dx * dx + dy * dy);
+
+                            if (distance < 150) {
+                                ctx.strokeStyle = `rgba(86, 129, 196, ${1 - distance / 150})`;
+                                ctx.lineWidth = 0.3;
+                                ctx.beginPath();
+                                ctx.moveTo(particles[a].x, particles[a].y);
+                                ctx.lineTo(particles[b].x, particles[b].y);
+                                ctx.stroke();
+                            }
+                        }
+                    }
+                };
+
+                const animate = () => {
+                    ctx.clearRect(0, 0, canvas.width, canvas.height);
+                    particles.forEach(p => {
+                        p.update();
+                        p.draw();
+                    });
+                    connectParticles();
+                    animationFrameId = requestAnimationFrame(animate);
+                };
+
+                const startAnimation = () => {
+                    if (!animationFrameId) {
+                        setupCanvas();
+                        animate();
+                    }
+                };
+
+                const stopAnimation = () => {
+                    if (animationFrameId) {
+                        cancelAnimationFrame(animationFrameId);
+                        animationFrameId = null;
+                    }
+                };
+
+                const heroObserver = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            startAnimation();
+                        } else {
+                            stopAnimation();
+                        }
+                    });
+                }, { threshold: 0 });
+                
+                heroObserver.observe(heroSection);
+
+                window.addEventListener('resize', () => {
+                    stopAnimation();
+                    setTimeout(startAnimation, 250);
+                });
+            }
+
             // --- 動態數字計數器 ---
             const counters = document.querySelectorAll('.number');
             const speed = 200;
@@ -849,7 +1092,7 @@
                 observer.observe(statsGrid);
             }
 
-            // --- 【修改】模組化照片輪播功能 ---
+            // --- 模組化照片輪播功能 ---
             function initializeSlideshow(container) {
                 if (!container) return;
 
