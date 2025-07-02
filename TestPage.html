@@ -1,207 +1,181 @@
 <!DOCTYPE html>
 <html lang="zh-TW">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>有趣的CSS動畫展示</title>
+    <title>柏勝科技 - AI 智慧製造整合專家</title>
+    <!-- 引入具有科技感的 Google Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700&display=swap" rel="stylesheet">
     <style>
-        /* --- 全域與基本樣式 --- */
-        body {
-            font-family: 'Helvetica Neue', Arial, sans-serif;
-            background-color: #f0f2f5;
-            color: #333;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
+        /* --- CSS Reset & 基本設定 --- */
+        body,
+        html {
             margin: 0;
-            padding: 20px;
-            box-sizing: border-box;
-        }
-
-        .container {
-            background-color: #ffffff;
-            padding: 30px 40px;
-            border-radius: 12px;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            padding: 0;
             width: 100%;
-            max-width: 600px;
+            height: 100%;
+            background-color: #fff;
+            /* 純黑背景，讓數位雨更突出 */
+            color: #f0f0f0;
+            font-family: 'Noto Sans TC', sans-serif;
+            overflow: hidden;
+            /* 隱藏滾動條 */
         }
 
-        h1 {
-            text-align: center;
-            color: #2c3e50;
-            margin-bottom: 30px;
-            border-bottom: 2px solid #e0e0e0;
-            padding-bottom: 15px;
+        /* --- 數位雨動畫的畫布 --- */
+        #matrix-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
         }
 
-        h2 {
-            color: #34495e;
-            margin-top: 40px;
-            margin-bottom: 15px;
-        }
-
-        .animation-box {
+        /* --- 內容容器 --- */
+        .content-container {
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
-            min-height: 100px;
-            background-color: #fafafa;
-            border: 1px dashed #dddddd;
-            border-radius: 8px;
+            height: 100vh;
+            text-align: center;
             padding: 20px;
+            position: relative;
+            z-index: 2;
+            background: rgba(0, 0, 0, 0.6);
+            /* 稍微加深遮罩，讓莫蘭迪色更突出 */
+            backdrop-filter: blur(2px);
         }
 
-        /* --- 動畫 1: 懸停效果按鈕 --- */
-        .hover-btn {
-            background-color: #3498db;
-            color: white;
-            border: none;
-            padding: 15px 30px;
-            font-size: 18px;
-            border-radius: 50px;
-            cursor: pointer;
-            outline: none;
-            /* transition 屬性讓所有變化的屬性在 0.3 秒內平滑過渡 */
-            transition: all 0.3s ease-in-out;
-            box-shadow: 0 4px 6px rgba(50, 50, 93, 0.11), 0 1px 3px rgba(0, 0, 0, 0.08);
+        /* --- 修改部分開始 --- */
+
+        /* --- 主標題 "柏勝科技" 的樣式 (莫蘭迪色版) --- */
+        .main-title {
+            font-size: clamp(3rem, 10vw, 6rem);
+            font-weight: 700;
+            /* 使用一種沉靜、優雅的深莫蘭迪藍 */
+            color: #8fa8b8;
+            /* Dusty Blue / 霧霾藍 */
+            letter-spacing: 4px;
+
+            /* 應用新的、更柔和的發光脈衝動畫 */
+            animation: soft-pulse-glow 5s ease-in-out infinite;
         }
 
-        /* :hover 偽類定義了滑鼠懸停時的樣式 */
-        .hover-btn:hover {
-            background-color: #2980b9;
-            /* transform 讓我們可以移動、縮放、旋轉元素 */
-            transform: translateY(-5px) scale(1.05);
-            box-shadow: 0 7px 14px rgba(50, 50, 93, 0.1), 0 3px 6px rgba(0, 0, 0, 0.08);
+        /* --- 副標題的樣式 --- */
+        .subtitle {
+            font-size: clamp(1.1rem, 4vw, 1.6rem);
+            color: #cccccc;
+            /* 稍微調亮副標題顏色以匹配新的主色調 */
+            margin-top: 15px;
+            font-weight: 300;
+            letter-spacing: 1px;
+            max-width: 800px;
+            opacity: 0;
+            animation: fadeIn 2s ease-out 1s forwards;
         }
 
-        /* --- 動畫 2: 無限載入中轉圈 --- */
-        .loader {
-            width: 50px;
-            height: 50px;
-            border: 5px solid #f3f3f3; /* 淺灰色軌道 */
-            border-top: 5px solid #3498db; /* 藍色活動部分 */
-            border-radius: 50%; /* 變成圓形 */
-            /* animation 屬性應用我們定義的 @keyframes 動畫 */
-            /* spin 是動畫名稱, 2s 是持續時間, linear 是速度曲線, infinite 是無限次重複 */
-            animation: spin 1.5s linear infinite;
-        }
+        /* --- 定義動畫關鍵影格 (莫蘭迪色版) --- */
 
-        /* @keyframes 定義動畫的過程 */
-        @keyframes spin {
-            0% { transform: rotate(0deg); } /* 動畫開始時，旋轉 0 度 */
-            100% { transform: rotate(360deg); } /* 動畫結束時，旋轉 360 度 */
-        }
-        
-        /* --- 動畫 3: 彈跳的球 --- */
-        .bouncing-ball {
-            width: 40px;
-            height: 40px;
-            background-color: #e74c3c;
-            border-radius: 50%;
-            /* bounce 是動畫名稱, 1s 是時間, ease-in-out 是速度曲線, infinite 是無限重複 */
-            animation: bounce 1s ease-in-out infinite;
-        }
+        /* 柔和的發光脈衝動畫：營造內斂的呼吸燈效果 */
+        @keyframes soft-pulse-glow {
 
-        @keyframes bounce {
-            /* 0% 和 100% 都在底部，50% 在頂部，形成一個完整的彈跳週期 */
-            0%, 100% {
-                transform: translateY(0);
-                animation-timing-function: ease-out; /* 落下時加速 */
+            0%,
+            100% {
+                text-shadow:
+                    0 0 8px rgba(204, 224, 255, 0.5),
+                    /* 內層柔和輝光 */
+                    0 0 16px rgba(106, 122, 138, 0.4);
+                /* 外層深色光暈 */
             }
+
             50% {
-                transform: translateY(-50px);
-                animation-timing-function: ease-in; /* 上升時減速 */
+                text-shadow:
+                    0 0 12px rgba(204, 224, 255, 0.8),
+                    /* 增強內層輝光 */
+                    0 0 24px rgba(204, 224, 255, 0.6),
+                    0 0 36px rgba(106, 122, 138, 0.5);
             }
         }
 
-        /* --- 動畫 4: 跳動的心 --- */
-        .pulsing-heart {
-            font-size: 50px;
-            color: #e74c3c;
-            /* pulse 是動畫名稱, 1.2s 是時間, ease-in-out 是速度曲線, infinite 是無限重複 */
-            animation: pulse 1.2s ease-in-out infinite;
-        }
-        
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.3); }
-            100% { transform: scale(1); }
-        }
+        /* --- 修改部分結束 --- */
 
-        /* --- 動畫 5: 打字機效果 --- */
-        .typing-container {
-            width: 100%;
-            display: inline-block;
-        }
-        .typing-text {
-            font-family: 'Courier New', Courier, monospace;
-            font-size: 18px;
-            overflow: hidden; /* 隱藏超出寬度的文字 */
-            border-right: .15em solid orange; /* 模擬閃爍的游標 */
-            white-space: nowrap; /* 確保文字不換行 */
-            margin: 0 auto;
-            letter-spacing: .1em;
-            /* 應用兩個動畫：一個用於打字，一個用於游標閃爍 */
-            animation:
-                typing 3.5s steps(30, end), /* steps() 讓動畫分步進行，模擬打字效果 */
-                blink-caret .75s step-end infinite;
-        }
+        /* 淡入動畫 */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(15px);
+            }
 
-        /* 打字動畫：將寬度從 0% 擴展到 100% */
-        @keyframes typing {
-            from { width: 0 }
-            to { width: 100% }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
-
-        /* 游標閃爍動畫 */
-        @keyframes blink-caret {
-            from, to { border-color: transparent }
-            50% { border-color: orange; }
-        }
-
     </style>
 </head>
+
 <body>
 
-    <div class="container">
-        <h1>有趣的CSS動畫展示</h1>
-        <p>這是一個展示純CSS製作的各種小動畫的頁面。無需JavaScript！</p>
-        
-        <!-- 動畫 1 -->
-        <h2>1. 懸停效果按鈕</h2>
-        <div class="animation-box">
-            <button class="hover-btn">把滑鼠移上來</button>
-        </div>
+    <!-- 用於繪製數位雨動畫的 Canvas 元素 -->
+    <canvas id="matrix-canvas"></canvas>
 
-        <!-- 動畫 2 -->
-        <h2>2. 無限載入中</h2>
-        <div class="animation-box">
-            <div class="loader"></div>
-        </div>
-
-        <!-- 動畫 3 -->
-        <h2>3. 彈跳的球</h2>
-        <div class="animation-box">
-            <div class="bouncing-ball"></div>
-        </div>
-
-        <!-- 動畫 4 -->
-        <h2>4. 跳動的心</h2>
-        <div class="animation-box">
-            <div class="pulsing-heart">❤</div>
-        </div>
-
-        <!-- 動畫 5 -->
-        <h2>5. 打字機效果</h2>
-        <div class="animation-box">
-            <div class="typing-container">
-                <p class="typing-text">哈囉，這是一段打字動畫...</p>
-            </div>
-        </div>
-
+    <!-- 頁面主要內容 -->
+    <div class="content-container">
+        <h1 class="main-title">柏勝科技</h1>
+        <p class="subtitle">您最信賴的 AI 智慧製造整合專家</p>
     </div>
 
+    <!-- JavaScript 部分 (與前一版相同) -->
+    <script>
+        const canvas = document.getElementById('matrix-canvas');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        const katakana = 'アァカサタナハマヤャラワガザダバパイィキシチニヒミリヰギジヂビピウゥクスツヌフムユュルグズブヅプエェケセテネヘメレヱゲゼデベペオォコソトノホモヨョロヲゴゾドボポヴッン';
+        const latin = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        const nums = '0123456789';
+        const characters = katakana + latin + nums;
+        const fontSize = 24;
+        const columns = Math.floor(canvas.width / fontSize);
+        const drops = [];
+        for (let i = 0; i < columns; i++) {
+            drops[i] = 1;
+        }
+        function draw() {
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            ctx.fillStyle = '#adcee0';
+            ctx.font = `${fontSize}px monospace`;
+            for (let i = 0; i < columns; i++) {
+                const text = characters.charAt(Math.floor(Math.random() * characters.length));
+                const x = i * fontSize;
+                const y = drops[i] * fontSize;
+                ctx.fillText(text, x, y);
+                if (y > canvas.height && Math.random() > 0.975) {
+                    drops[i] = 0;
+                }
+                drops[i]++;
+            }
+        }
+        setInterval(draw, 33);
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            const newColumns = Math.floor(canvas.width / fontSize);
+            if (newColumns > drops.length) {
+                for (let i = drops.length; i < newColumns; i++) {
+                    drops.push(1);
+                }
+            } else {
+                drops.length = newColumns;
+            }
+        });
+    </script>
 </body>
+
 </html>
