@@ -1,28 +1,24 @@
 <!DOCTYPE html>
 <html lang="zh-TW">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>柏勝科技 - AI 智慧製造整合專家</title>
-    <!-- 引入具有科技感的 Google Font -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700&display=swap" rel="stylesheet">
     <style>
         /* --- CSS Reset & 基本設定 --- */
-        body,
-        html {
+        body, html {
             margin: 0;
             padding: 0;
             width: 100%;
             height: 100%;
-            background-color: #fff;
-            /* 純黑背景，讓數位雨更突出 */
-            color: #f0f0f0;
+            /* 1. 動畫改成白色底 */
+            background-color: #fff; 
+            color: #333; /* 預設文字顏色改成深灰色以確保可讀性 */
             font-family: 'Noto Sans TC', sans-serif;
             overflow: hidden;
-            /* 隱藏滾動條 */
         }
 
         /* --- 數位雨動畫的畫布 --- */
@@ -32,7 +28,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            z-index: 1;
+            z-index: 1; /* 確保畫布在最底層 */
         }
 
         /* --- 內容容器 --- */
@@ -45,130 +41,172 @@
             text-align: center;
             padding: 20px;
             position: relative;
-            z-index: 2;
-            background: rgba(0, 0, 0, 0.6);
-            /* 稍微加深遮罩，讓莫蘭迪色更突出 */
-            backdrop-filter: blur(2px);
+            z-index: 3; /* 確保內容在最上層 */
         }
 
-        /* --- 修改部分開始 --- */
-
-        /* --- 主標題 "柏勝科技" 的樣式 (莫蘭迪色版) --- */
+        /* --- 主標題 "柏勝科技" 的樣式 --- */
         .main-title {
             font-size: clamp(3rem, 10vw, 6rem);
             font-weight: 700;
-            /* 使用一種沉靜、優雅的深莫蘭迪藍 */
-            color: #8fa8b8;
-            /* Dusty Blue / 霧霾藍 */
+            color: #2c3e50; /* 使用更深邃的海軍藍，在白底上更清晰 */
             letter-spacing: 4px;
-
-            /* 應用新的、更柔和的發光脈衝動畫 */
-            animation: soft-pulse-glow 5s ease-in-out infinite;
+            /* 在白底上，移除光暈效果，保持簡潔 */
         }
 
         /* --- 副標題的樣式 --- */
         .subtitle {
             font-size: clamp(1.1rem, 4vw, 1.6rem);
-            color: #cccccc;
-            /* 稍微調亮副標題顏色以匹配新的主色調 */
+            color: #555;
             margin-top: 15px;
-            font-weight: 300;
+            font-weight: 400;
             letter-spacing: 1px;
             max-width: 800px;
-            opacity: 0;
-            animation: fadeIn 2s ease-out 1s forwards;
+        }
+        
+        /* --- 3. 新增：滾動球體的容器 --- */
+        .ball-container {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 150px; /* 球體活動區域的高度 */
+            z-index: 2; /* 在畫布之上，內容之下 */
+            pointer-events: none; /* 讓滑鼠可以穿透此層 */
         }
 
-        /* --- 定義動畫關鍵影格 (莫蘭迪色版) --- */
-
-        /* 柔和的發光脈衝動畫：營造內斂的呼吸燈效果 */
-        @keyframes soft-pulse-glow {
-
-            0%,
-            100% {
-                text-shadow:
-                    0 0 8px rgba(204, 224, 255, 0.5),
-                    /* 內層柔和輝光 */
-                    0 0 16px rgba(106, 122, 138, 0.4);
-                /* 外層深色光暈 */
-            }
-
-            50% {
-                text-shadow:
-                    0 0 12px rgba(204, 224, 255, 0.8),
-                    /* 增強內層輝光 */
-                    0 0 24px rgba(204, 224, 255, 0.6),
-                    0 0 36px rgba(106, 122, 138, 0.5);
-            }
+        /* --- 新增：球體的通用樣式 --- */
+        .ball {
+            position: absolute;
+            bottom: 20px;
+            background-color: #5e7fb8; /* 使用與數位雨相同的顏色 */
+            border-radius: 50%;
+            opacity: 0.7; /* 帶一點透明感，增加層次 */
+            animation: roll-horizontal linear infinite;
+        }
+        
+        /* --- 新增：為不同的球體設定大小和動畫速度 --- */
+        .ball:nth-child(1) {
+            width: 80px;
+            height: 80px;
+            left: -100px; /* 初始位置在螢幕外 */
+            animation-duration: 12s; /* 動畫持續時間 */
+            animation-delay: -3s; /* 動畫延遲（負值使其立即開始） */
+        }
+        .ball:nth-child(2) {
+            width: 30px;
+            height: 30px;
+            bottom: 50px;
+            left: -150px;
+            animation-duration: 9s;
+            animation-delay: -1s;
+        }
+        .ball:nth-child(3) {
+            width: 50px;
+            height: 50px;
+            left: -200px;
+            animation-duration: 15s;
+            animation-delay: -7s;
+        }
+        .ball:nth-child(4) {
+            width: 100px;
+            height: 100px;
+            bottom: 10px;
+            left: -300px;
+            animation-duration: 20s;
+            animation-delay: -10s;
+            opacity: 0.5;
+        }
+        .ball:nth-child(5) {
+            width: 20px;
+            height: 20px;
+            bottom: 80px;
+            left: -100px;
+            animation-duration: 8s;
+            animation-delay: -5s;
         }
 
-        /* --- 修改部分結束 --- */
-
-        /* 淡入動畫 */
-        @keyframes fadeIn {
+        /* --- 新增：球體滾動的動畫 --- */
+        @keyframes roll-horizontal {
             from {
-                opacity: 0;
-                transform: translateY(15px);
+                transform: translateX(0);
             }
-
             to {
-                opacity: 1;
-                transform: translateY(0);
+                /* 移動到螢幕寬度之外，確保完全滾出螢幕 */
+                transform: translateX(calc(100vw + 300px));
             }
         }
+
     </style>
 </head>
-
 <body>
 
-    <!-- 用於繪製數位雨動畫的 Canvas 元素 -->
+    <!-- 數位雨畫布 -->
     <canvas id="matrix-canvas"></canvas>
 
-    <!-- 頁面主要內容 -->
+    <!-- 滾動球體容器 -->
+    <div class="ball-container">
+        <div class="ball"></div>
+        <div class="ball"></div>
+        <div class="ball"></div>
+        <div class="ball"></div>
+        <div class="ball"></div>
+    </div>
+
+    <!-- 主要內容 -->
     <div class="content-container">
         <h1 class="main-title">柏勝科技</h1>
         <p class="subtitle">您最信賴的 AI 智慧製造整合專家</p>
     </div>
 
-    <!-- JavaScript 部分 (與前一版相同) -->
+    <!-- JavaScript 部分 -->
     <script>
         const canvas = document.getElementById('matrix-canvas');
         const ctx = canvas.getContext('2d');
         canvas.width = window.innerWidth;
         canvas.height = window.innerHeight;
+
         const katakana = 'アァカサタナハマヤャラワガザダバパイィキシチニヒミリヰギジヂビピウゥクスツヌフムユュルグズブヅプエェケセテネヘメレヱゲゼデベペオォコソトノホモヨョロヲゴゾドボポヴッン';
         const latin = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
         const nums = '0123456789';
         const characters = katakana + latin + nums;
-        const fontSize = 24;
+        const fontSize = 16;
         const columns = Math.floor(canvas.width / fontSize);
+
         const drops = [];
         for (let i = 0; i < columns; i++) {
             drops[i] = 1;
         }
+
         function draw() {
-            ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+            // 在白色背景上繪製半透明的白色矩形，以產生拖尾效果
+            ctx.fillStyle = 'rgba(255, 255, 255, 0.05)';
             ctx.fillRect(0, 0, canvas.width, canvas.height);
-            ctx.fillStyle = '#adcee0';
+
+            // 2. 掉落文字顏色改成 #5e7fb8
+            ctx.fillStyle = '#5e7fb8'; 
             ctx.font = `${fontSize}px monospace`;
+
             for (let i = 0; i < columns; i++) {
                 const text = characters.charAt(Math.floor(Math.random() * characters.length));
                 const x = i * fontSize;
                 const y = drops[i] * fontSize;
                 ctx.fillText(text, x, y);
+
                 if (y > canvas.height && Math.random() > 0.975) {
                     drops[i] = 0;
                 }
                 drops[i]++;
             }
         }
+
         setInterval(draw, 33);
+
         window.addEventListener('resize', () => {
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
             const newColumns = Math.floor(canvas.width / fontSize);
             if (newColumns > drops.length) {
-                for (let i = drops.length; i < newColumns; i++) {
+                for(let i = drops.length; i < newColumns; i++) {
                     drops.push(1);
                 }
             } else {
@@ -177,5 +215,4 @@
         });
     </script>
 </body>
-
 </html>
