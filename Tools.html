@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+
+<head>
+    <meta charset="UTF-8">
+    <title>My Tools</title>
+    <style>
+        body {
+            font-family: "Segoe UI", Arial, sans-serif;
+            background: #f8f9fa;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 40px;
+        }
+
+        h2 {
+            margin-bottom: 20px;
+            color: #444;
+        }
+
+        .tool-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 15px;
+            width: 100%;
+            max-width: 800px;
+        }
+
+        .tool-btn {
+            padding: 15px;
+            border: none;
+            border-radius: 12px;
+            background: #007bff;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .tool-btn:hover {
+            background: #0056b3;
+        }
+    </style>
+</head>
+
+<body>
+    <h2>我的小工具</h2>
+    <div class="tool-container" id="toolContainer"></div>
+
+    <script>
+        // 模擬 Tools 資料夾內的檔案清單
+        const tools = [
+            { name: "Time Zone Converter", file: "TimeZoneConver.html" },
+            { name: "Hello", file: "Hello.html" }
+        ];
+
+        const container = document.getElementById("toolContainer");
+
+        tools.forEach(tool => {
+            const btn = document.createElement("button");
+            btn.className = "tool-btn";
+            btn.textContent = tool.name;
+            btn.onclick = () => window.location.href = "Tools/" + tool.file;
+            container.appendChild(btn);
+        });
+    </script>
+</body>
+
+</html>
