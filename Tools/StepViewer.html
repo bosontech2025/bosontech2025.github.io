@@ -110,11 +110,11 @@
 
         function parseScript(text) {
             // Extract Topic
-            let topicMatch = text.match(/\[Topic\](.*?)(?=\[\d+\]|$)/);
+            let topicMatch = text.match(/\[Topic\]([\s\S]*?)(?=\[\d+\]|$)/);
             let topic = topicMatch ? topicMatch[1].trim() : 'No Topic';
 
             // Extract steps
-            const stepMatches = text.match(/\[\d+\](.*?)(?=(\[\d+\]|$))/g);
+            const stepMatches = text.match(/\[\d+\]([\s\S]*?)(?=(\[\d+\]|$))/g);
             const steps = stepMatches ? stepMatches.map(s => s.replace(/\[\d+\]/, '').trim()) : [];
             return { topic, steps };
         }
