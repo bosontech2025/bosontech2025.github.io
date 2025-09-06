@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StepScript</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f0f4f8;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .container {
+            width: 600px;
+            background-color: #ffffff;
+            border-radius: 15px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+        }
+
+        textarea {
+            width: 100%;
+            height: 150px;
+            border-radius: 10px;
+            border: 1px solid #a0c4ff;
+            padding: 10px;
+            font-size: 14px;
+            resize: none;
+            outline: none;
+        }
+
+        .btn {
+            background-color: #74c0fc;
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            margin: 5px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background-color 0.3s;
+        }
+
+        .btn:hover {
+            background-color: #4dabf7;
+        }
+
+        .step-display {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #e7f5ff;
+            border-radius: 12px;
+            min-height: 60px;
+            font-size: 16px;
+            white-space: pre-line;
+            /* allow line breaks */
+        }
+
+        .topic-display {
+            font-weight: bold;
+            font-size: 18px;
+            margin-top: 10px;
+            padding: 10px;
+            background-color: #d0ebff;
+            border-radius: 12px;
+        }
+
+        .control-buttons {
+            margin-top: 20px;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <textarea id="scriptInput" placeholder="Enter script, e.g., [Topic] ... [1] Step 1 ..."></textarea>
+        <div style="text-align:right; margin-top:5px;">
+            <button class="btn" id="toggleEdit">Done</button>
+        </div>
+
+        <div class="topic-display" id="topicDisplay">Topic Display</div>
+        <div class="step-display" id="stepDisplay">Step Display</div>
+
+        <div class="control-buttons">
+            <button class="btn" id="prevBtn">Previous</button>
+            <button class="btn" id="nextBtn">Next</button>
+        </div>
+    </div>
+
+    <script>
+        let steps = [];
+        let topic = '';
+        let currentStep = 0;
+        let editing = true;
+
+        const scriptInput = document.getElementById('scriptInput');
+        const toggleEditBtn = document.getElementById('toggleEdit');
+        const topicDisplay = document.getElementById('topicDisplay');
+        const stepDisplay = document.getElementById('stepDisplay');
+
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+
+        function parseScript(text) {
+            // Extract Topic
+            let topicMatch = text.match(/\[Topic\](.*?)(?=\[\d+\]|$)/);
+            let topic = topicMatch ? topicMatch[1].trim() : 'No Topic';
+
+            // Extract steps
+            const stepMatches = text.match(/\[\d+\](.*?)(?=(\[\d+\]|$))/g);
+            const steps = stepMatches ? stepMatches.map(s => s.replace(/\[\d+\]/, '').trim()) : [];
+            return { topic, steps };
+        }
+
+        function showStep(index) {
+            if (steps.length === 0) return;
+            if (index < 0) index = 0;
+            if (index >= steps.length) index = steps.length - 1;
+            currentStep = index;
+            stepDisplay.textContent = `Step ${currentStep + 1}/${steps.length}:\n${steps[currentStep]}`;
+        }
+
+        toggleEditBtn.addEventListener('click', () => {
+            if (editing) {
+                const parsed = parseScript(scriptInput.value);
+                topic = parsed.topic;
+                steps = parsed.steps;
+                topicDisplay.textContent = topic;
+                showStep(0);
+                scriptInput.style.display = 'none';
+                toggleEditBtn.textContent = 'Edit';
+            } else {
+                scriptInput.style.display = 'block';
+                toggleEditBtn.textContent = 'Done';
+            }
+            editing = !editing;
+        });
+
+        prevBtn.addEventListener('click', () => showStep(currentStep - 1));
+        nextBtn.addEventListener('click', () => showStep(currentStep + 1));
+
+    </script>
+
+</body>
+
+</html>
