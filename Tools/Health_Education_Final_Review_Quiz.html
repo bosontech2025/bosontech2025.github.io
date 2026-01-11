@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>健康教育期末考複習測驗</title>
+<style>
+    :root {
+        --primary-color: #2575fc;
+        --success-bg: #e6fffa;
+        --success-text: #27ae60;
+        --error-bg: #fff5f5;
+        --error-text: #e74c3c;
+    }
+
+    body {
+        font-family: "PingFang TC", "Microsoft JhengHei", sans-serif;
+        background-color: #f0f2f5;
+        margin: 0;
+        padding: 20px;
+        line-height: 1.6;
+    }
+
+    .container {
+        max-width: 800px;
+        margin: 0 auto;
+        background: white;
+        padding: 30px;
+        border-radius: 15px;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+    }
+
+    header {
+        text-align: center;
+        border-bottom: 2px solid #eee;
+        margin-bottom: 30px;
+        padding-bottom: 10px;
+    }
+
+    h1 { color: var(--primary-color); margin-bottom: 5px; }
+
+    .question-card {
+        background: #fff;
+        border: 1px solid #eef2f7;
+        border-radius: 12px;
+        padding: 20px;
+        margin-bottom: 25px;
+        transition: box-shadow 0.3s;
+    }
+
+    .question-card:hover { box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
+
+    .question-text {
+        font-size: 1.15rem;
+        font-weight: bold;
+        color: #2d3436;
+        margin-bottom: 15px;
+        display: block;
+    }
+
+    /* 確保每個選項自成一列 */
+    .options-list {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .option-btn {
+        width: 100%;
+        padding: 15px 20px;
+        border: 2px solid #f1f3f5;
+        border-radius: 10px;
+        background: #fff;
+        cursor: pointer;
+        text-align: left;
+        font-size: 1rem;
+        transition: all 0.2s;
+        color: #495057;
+        box-sizing: border-box;
+    }
+
+    .option-btn:hover:not(.disabled) {
+        border-color: var(--primary-color);
+        background-color: #f8fbff;
+    }
+
+    .option-btn.disabled { cursor: not-allowed; }
+
+    /* 正確與錯誤狀態樣式 */
+    .option-btn.selected-correct {
+        background-color: var(--success-bg);
+        border-color: var(--success-text);
+        color: var(--success-text);
+        font-weight: bold;
+    }
+
+    .option-btn.selected-wrong {
+        background-color: var(--error-bg);
+        border-color: var(--error-text);
+        color: var(--error-text);
+    }
+
+    .option-btn.is-correct {
+        border-color: var(--success-text);
+        background-color: var(--success-bg);
+    }
+
+    .feedback-msg {
+        margin-top: 15px;
+        padding: 10px;
+        border-radius: 8px;
+        font-weight: bold;
+        display: none;
+    }
+
+    .submit-area {
+        text-align: center;
+        margin-top: 40px;
+        padding: 30px;
+        border-top: 2px solid #eee;
+    }
+
+    .score-btn {
+        background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+        color: white;
+        border: none;
+        padding: 16px 50px;
+        font-size: 1.2rem;
+        font-weight: bold;
+        border-radius: 50px;
+        cursor: pointer;
+        box-shadow: 0 8px 15px rgba(37, 117, 252, 0.2);
+    }
+
+    #final-result {
+        display: none;
+        margin-top: 30px;
+        padding: 25px;
+        border-radius: 12px;
+        background: #f8fafc;
+        border: 2px solid #e2e8f0;
+    }
+
+    .score-num { font-size: 3.5rem; color: var(--primary-color); font-weight: 900; }
+</style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>📖 健康教育複習卷 (全 35 題)</h1>
+        <p>點選答案後立即鎖定並告知正解</p>
+    </header>
+
+    <div id="quiz-container"></div>
+
+    <div class="submit-area">
+        <button class="score-btn" onclick="showFinalScore()">查看複習成績</button>
+        <div id="final-result"></div>
+    </div>
+</div>
+
+<script>
+const rawQuestions = [
+    { q: "1. 有關外食，下列哪一項組合較符合健康的選擇？", options: ["茶葉蛋","烤香腸","洋芋片","提神飲料"], answer: "茶葉蛋" },
+    { q: "2. 下列有關「我的餐盤」內容敘述，下列何者錯誤？", options: ["豆魚蛋肉一掌心","飯跟蔬菜一樣多","每天早晚三杯奶","每餐水果拳頭大"], answer: "每天早晚三杯奶" },
+    { q: "3. 下列哪一種營養素無法提供人體熱量？", options: ["礦物質、維生素、水","蛋白質","醣類","脂肪"], answer: "礦物質、維生素、水" },
+    { q: "4. 下列選項哪一個是食物，不是食品？", options: ["玉米","冰淇淋","熱狗","巧克力"], answer: "玉米" },
+    { q: "5. 下列何者不是我們飲食列為最優先的選擇條件？", options: ["新鮮","精緻","未加工","天然"], answer: "精緻" },
+    { q: "6. 食品加工方法有很多種，請問下列哪個加工技術配對是正確的？", options: ["蘋果汁－低溫冷藏","蘋果派－醃漬法","蘋果乾－烘焙法","蘋果醬－乾燥法"], answer: "蘋果乾－烘焙法" },
+    { q: "7. 小美臉上的痘痘冒不停，建議她多攝取哪種食物改善皮膚？", options: ["無糖的紅茶","富含維他命 C 的奇異果","香噴噴的炸雞腿","充滿氣泡的碳酸飲料"], answer: "富含維他命 C 的奇異果" },
+    { q: "8. 花媽每天到超市購買食材，遇到何種情況最不適合購買？", options: ["成分當中含有食品添加物","商品名稱印清楚","僅提供國外負責廠商聯絡方式","保存期限只有 7 天"], answer: "僅提供國外負責廠商聯絡方式" },
+    { q: "9. 依據食品衛生管理法規定，以下哪一項食品標示可以不用列出？", options: ["價格","營養標示","原產地","容量"], answer: "價格" },
+    { q: "10. 以下何者不屬於六大類食物的類別之一？", options: ["反式脂肪","水果類","全穀雜糧類","乳品類"], answer: "反式脂肪" },
+    { q: "11. 以下誰的習慣較能確保野炊吃得安全又營養？", options: ["小玉：比較營養標示並確認保存期限","丸尾：看到零熱量就買","花輪：選擇多道加工食品","美環：有人推薦就買"], answer: "小玉：比較營養標示並確認保存期限" },
+    { q: "12. 關於水對人體助益，以下何者錯誤？", options: ["補充身體鈣質","避免中暑","幫助新陳代謝","促進腸胃蠕動"], answer: "補充身體鈣質" },
+    { q: "13. 外食把握原則，何者錯誤？", options: ["多買進口水果","挑選當季食材","少油少鹽少加工","多蔬菜多穀物"], answer: "多買進口水果" },
+    { q: "14. 下列何者並非水對人體的好處？", options: ["提供每日所需能量","幫助新陳代謝","增加腸胃蠕動","減少中暑機率"], answer: "提供每日所需能量" },
+    { q: "15. 下列配對何者正確？", options: ["脂質：保護人體器官","維生素：修補身體組織","蛋白質：提供主要熱量","醣類：促進腸胃蠕動"], answer: "脂質：保護人體器官" },
+    { q: "16. 成長階段如何減少鈣質流失？", options: ["多吃乳製品","多喝含咖啡因茶類","不要去運動","少吃深綠色蔬菜"], answer: "多吃乳製品" },
+    { q: "17. 何種情況較容易發生食物中毒？", options: ["冰箱越滿越好","生熟食分開擺放","廚房保持乾燥","垃圾桶有加蓋"], answer: "冰箱越滿越好" },
+    { q: "18. 野餐時小丸子該怎麼做降低中毒風險？", options: ["當天早上做的食品注意保溫並儘快食用","採摘路邊鮮豔菇類","購買昂貴進口食品","帶昨天的便當"], answer: "當天早上做的食品注意保溫並儘快食用" },
+    { q: "19. 臺灣常發生的食品中毒類型？", options: ["細菌性","病毒性","化學性","天然毒素"], answer: "細菌性" },
+    { q: "20. 食用毒貝類、毒河豚引起中毒屬於？", options: ["天然毒素中毒","化學性中毒","細菌性中毒","病毒性中毒"], answer: "天然毒素中毒" },
+    { q: "21. 黃豆、花生發霉可能產生下列何者？", options: ["黃麴毒素","腸炎弧菌","肉毒桿菌","諾羅病毒"], answer: "黃麴毒素" },
+    { q: "22. 手部傷口碰到食材，可能引發哪種細菌中毒？", options: ["金黃色葡萄球菌","黃麴毒素","肉毒桿菌","大腸桿菌"], answer: "金黃色葡萄球菌" },
+    { q: "23. 定期清理冰箱主要是在預防哪類中毒？", options: ["細菌性","天然毒素","化學性","病毒性"], answer: "細菌性" },
+    { q: "24. 對於細菌描述何者正確？", options: ["沙門氏桿菌存於家禽腸道","腸炎弧菌來自人體","金黃色葡萄球菌和海鮮有關","肉毒桿菌因室溫放太久產生"], answer: "沙門氏桿菌存於家禽腸道" },
+    { q: "25. 有關食品中毒觀念，何種說法正確？", options: ["只要一人不適就算食品中毒","化學性需兩人才算","喝牛奶拉肚子必算","不含自家廚房"], answer: "只要一人不適就算食品中毒" },
+    { q: "26. 發生中毒事件處理方式何者不適當？", options: ["將剩餘食品放進冷凍保存","通報衛生單位","將患者送醫","保留嘔吐物"], answer: "將剩餘食品放進冷凍保存" },
+    { q: "27. 如何避免天然毒素中毒？", options: ["選購前注意食品來源","高溫加熱消滅毒素","發芽馬鈴薯去皮可食","粉碎後去除"], answer: "選購前注意食品來源" },
+    { q: "28. 剩菜保存應怎麼做最健康？", options: ["妥善保存，下次食用前再加熱","冰箱無限期保存","直接放下一餐吃","不需容器加蓋"], answer: "妥善保存，下次食用前再加熱" },
+    { q: "29. 化學性食品中毒影響不包括？", options: ["促進神經和智能發展","污染土壤水質","增加癌症風險","造成器官受損"], answer: "促進神經和智能發展" },
+    { q: "30. 經營餐廳安全衛生何者適合？① 每天打掃後確實檢查環境衛生 ② 做好員工的衛生相關職前訓練 ③ 盡量補滿冰箱的空間，以免缺貨 ④ 花大錢請名廚站台與打廣告 ⑤ 選擇當地當季的食材進行烹調", options: ["①②⑤","②④⑤","①②③","②③⑤"], answer: "①②⑤" },
+    { q: "31. 剩菜保存最安全方式？", options: ["冷藏溫度 7°C 以下","保鮮膜放常溫","保鮮盒完全阻隔細菌","不需包覆"], answer: "冷藏溫度 7°C 以下" },
+    { q: "32. 預防中毒五要，何者正確？", options: ["加熱應達 70°C 以上","冰箱永久保存","只需料理者洗手","保溫 50°C 即可"], answer: "加熱應達 70°C 以上" },
+    { q: "33. 魚類在室溫下易產生何種物質？", options: ["組織胺","礦物質","葡萄糖","維生素"], answer: "組織胺" },
+    { q: "34. 食品中毒常見原因？", options: ["處理食物者本身有傷口","徹底加熱殺菌","生熟食分開","器具清洗乾淨"], answer: "處理食物者本身有傷口" },
+    { q: "35. 外食選擇敘述何者錯誤？", options: ["加工食品導致血壓下降","選擇當季當地食材","加工調味流失營養","全穀類增加飽足感"], answer: "加工食品導致血壓下降" }
+];
+
+let correctCount = 0;
+let totalAnswered = 0;
+
+function shuffle(arr) {
+    for (let i = arr.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [arr[i], arr[j]] = [arr[j], arr[i]];
+    }
+    return arr;
+}
+
+function initQuiz() {
+    const container = document.getElementById('quiz-container');
+    const shuffledQuestions = shuffle([...rawQuestions]);
+
+    shuffledQuestions.forEach((item, index) => {
+        const card = document.createElement('div');
+        card.className = 'question-card';
+        
+        // 隱藏原始題號並使用動態新題號
+        const cleanQuestion = item.q.replace(/^\d+\.\s*/, '');
+        const qTitle = document.createElement('span');
+        qTitle.className = 'question-text';
+        qTitle.innerText = `${index + 1}. ${cleanQuestion}`;
+        card.appendChild(qTitle);
+
+        const optionsDiv = document.createElement('div');
+        optionsDiv.className = 'options-list';
+
+        shuffle([...item.options]).forEach(optText => {
+            const btn = document.createElement('button');
+            btn.className = 'option-btn';
+            btn.innerText = optText;
+            btn.onclick = () => handleAnswer(btn, item.answer, card);
+            optionsDiv.appendChild(btn);
+        });
+
+        const feedback = document.createElement('div');
+        feedback.className = 'feedback-msg';
+        card.appendChild(optionsDiv);
+        card.appendChild(feedback);
+        container.appendChild(card);
+    });
+}
+
+function handleAnswer(selectedBtn, correctAnswer, card) {
+    const allBtns = card.querySelectorAll('.option-btn');
+    const feedback = card.querySelector('.feedback-msg');
+    
+    totalAnswered++;
+    
+    // 鎖定答案
+    allBtns.forEach(btn => {
+        btn.classList.add('disabled');
+        btn.onclick = null;
+        if (btn.innerText === correctAnswer) btn.classList.add('is-correct');
+    });
+
+    if (selectedBtn.innerText === correctAnswer) {
+        correctCount++;
+        selectedBtn.classList.add('selected-correct');
+        feedback.innerText = "✅ 答對了！";
+        feedback.style.color = "var(--success-text)";
+    } else {
+        selectedBtn.classList.add('selected-wrong');
+        feedback.innerText = `❌ 答錯了，正確答案是：${correctAnswer}`;
+        feedback.style.color = "var(--error-text)";
+    }
+    feedback.style.display = "block";
+}
+
+function showFinalScore() {
+    const resultDiv = document.getElementById('final-result');
+    const total = rawQuestions.length;
+    const score = Math.round((correctCount / total) * 100);
+    
+    resultDiv.style.display = "block";
+    resultDiv.innerHTML = `
+        <h2 style="margin:0;">期末複習總結</h2>
+        <div class="score-num">${score} 分</div>
+        <p style="font-size:1.1rem; color:#666;">
+            總題數：${total} 題<br>
+            答對題數：<strong>${correctCount}</strong> 題<br>
+            答題完成率：${Math.round((totalAnswered/total)*100)}%
+        </p>
+        <button class="score-btn" style="padding:10px 25px; font-size:1rem; margin-top:10px; background:#94a3b8;" onclick="location.reload()">重新隨機挑戰</button>
+    `;
+    resultDiv.scrollIntoView({ behavior: 'smooth' });
+}
+
+window.onload = initQuiz;
+</script>
+
+</body>
+</html>
