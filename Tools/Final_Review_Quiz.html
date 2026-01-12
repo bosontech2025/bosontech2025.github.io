@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>期末考練習</title>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: "微軟正黑體", "Noto Sans TC", sans-serif;
+            background: #ffffff;
+            color: #333;
+        }
+
+        .container {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        h1 {
+            font-size: 48px;
+            margin-bottom: 50px;
+            animation: fadeDown 1s ease;
+        }
+
+        .buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        .btn {
+            width: 280px;
+            padding: 18px 0;
+            font-size: 22px;
+            text-align: center;
+            text-decoration: none;
+            color: #333;
+            border: 2px solid #ddd;
+            border-radius: 14px;
+            background: #fafafa;
+            transition: all 0.3s ease;
+            animation: floatUp 2.5s ease-in-out infinite;
+        }
+
+        .btn:nth-child(2) {
+            animation-delay: 0.3s;
+        }
+
+        .btn:nth-child(3) {
+            animation-delay: 0.6s;
+        }
+
+        .btn:hover {
+            background: #f0f8ff;
+            border-color: #4facfe;
+            transform: translateY(-6px) scale(1.03);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.12);
+        }
+
+        .hint {
+            margin-top: 60px;
+            font-size: 14px;
+            color: #888;
+            animation: fadeIn 2s ease;
+        }
+
+        /* ===== Animations ===== */
+
+        @keyframes fadeDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes floatUp {
+            0% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-8px);
+            }
+            100% {
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 36px;
+            }
+            .btn {
+                width: 240px;
+                font-size: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>📘 期末考練習</h1>
+
+    <div class="buttons">
+        <a class="btn" href="Performing_Arts_Final_Review_Quiz.html">🎭 表演藝術</a>
+        <a class="btn" href="PE_Final_Review_Quiz.html">🏀 體育</a>
+        <a class="btn" href="Health_Education_Final_Review_Quiz.html">💪 健康</a>
+    </div>
+
+    <div class="hint">
+        點選科目開始練習 ✨
+    </div>
+</div>
+
+</body>
+</html>
